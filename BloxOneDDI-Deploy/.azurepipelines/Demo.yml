@@ -34,6 +34,7 @@ stages:
         environmentServiceNameAzureRM: 'azure-infobloxlab'
 
     - publish: $(System.DefaultWorkingDirectory)/BloxOneDDI-Deploy/main.tfplan
+      displayName: Publish Terraform Plan
       artifact: plan
 
 - stage: Apply
@@ -43,14 +44,13 @@ stages:
     displayName: 'Terraform Apply'
     steps:
     - download: current
+      displayName: Download Terraform Plan
       artifact: plan
 
     - task: CmdLine@2
       inputs:
         script: |
-          ls -l
-          cd plan
-          ls -l
+          ls -l $(Pipeline.Workspace)/plan
 
     - task: TerraformTaskV4@4
       name: terraformApply
@@ -58,7 +58,7 @@ stages:
       inputs:
         provider: 'azurerm'
         command: 'apply'
-        commandOptions: 'plan/main.tfplan'
+        commandOptions: '$(Pipeline.Workspace)/plan/main.tfplan'
         workingDirectory: 'BloxOneDDI-Deploy'
         environmentServiceNameAzureRM: 'azure-infobloxlab'
 
@@ -69,6 +69,7 @@ stages:
     displayName: 'Terraform Destroy'
     steps:
     - download: current
+      displayName: Download Terraform Plan
       artifact: plan
       
     - task: TerraformTaskV4@4
@@ -77,6 +78,6 @@ stages:
       inputs:
         provider: 'azurerm'
         command: 'destroy'
-        commandOptions: 'plan/main.tfplan'
+        commandOptions: '$(Pipeline.Workspace)/plan/main.tfplan'
         workingDirectory: 'BloxOneDDI-Deploy'
         environmentServiceNameAzureRM: 'azure-infobloxlab'
