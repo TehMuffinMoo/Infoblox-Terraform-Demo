@@ -4,8 +4,6 @@ terraform {
       source = "infobloxopen/bloxone"
       version = "1.2.0"
     }
-    azurerm = {
-    }
   }
 }
 
