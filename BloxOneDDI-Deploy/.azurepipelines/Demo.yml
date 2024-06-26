@@ -33,7 +33,7 @@ stages:
         workingDirectory: 'BloxOneDDI-Deploy'
         environmentServiceNameAzureRM: 'azure-infobloxlab'
 
-    - publish: $(System.DefaultWorkingDirectory)/main.tfplan
+    - publish: $(System.DefaultWorkingDirectory)/BloxOneDDI-Deploy/main.tfplan
       artifact: plan
 
 - stage: Apply
