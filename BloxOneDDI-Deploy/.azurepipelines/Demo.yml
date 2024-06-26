@@ -22,6 +22,12 @@ stages:
         backendAzureRmContainerName: 'deploy-demo'
         backendAzureRmKey: 'state.tfstate'
 
+    - task: CmdLine@2
+      displayName: 'List Files'
+      inputs:
+        script: |
+          ls -l
+
     - task: TerraformTaskV4@4
       name: terraformPlan
       displayName: Create Terraform Plan
