@@ -15,7 +15,7 @@ pool:
 
 stages:
 - stage: Plan
-  condition: ${{ or(eq(parameters.action, 'Plan'), eq(parameters.action, 'Apply')) }}
+  condition: ${{ eq(parameters.action, 'Plan') }}
   displayName: 'Terraform Plan'
   jobs:
   - job: TerraformPlan
@@ -43,10 +43,6 @@ stages:
         workingDirectory: 'BloxOneDDI-Deploy'
         environmentServiceNameAzureRM: 'azure-infobloxlab'
 
-    - publish: $(System.DefaultWorkingDirectory)/BloxOneDDI-Deploy/main.tfplan
-      displayName: Publish Terraform Plan
-      artifact: plan
-
 - stage: Apply
   condition: ${{ eq(parameters.action, 'Apply') }}
   displayName: 'Terraform Apply'
@@ -54,10 +50,6 @@ stages:
   - job: TerraformApply
     displayName: 'Terraform Apply'
     steps:
-    - download: current
-      displayName: Download Terraform Plan
-      artifact: plan
-
     - task: TerraformTaskV4@4
       displayName: Initialize Terraform
       inputs:
@@ -71,12 +63,22 @@ stages:
         workingDirectory: 'BloxOneDDI-Deploy'
 
     - task: TerraformTaskV4@4
+      name: terraformPlan
+      displayName: Create Terraform Plan
+      inputs:
+        provider: 'azurerm'
+        command: 'plan'
+        commandOptions: '-out main.tfplan --var-file=demo.tfvars -var b1_api_key=$(B1DDI_API_KEY)'
+        workingDirectory: 'BloxOneDDI-Deploy'
+        environmentServiceNameAzureRM: 'azure-infobloxlab'
+
+    - task: TerraformTaskV4@4
       name: terraformApply
       displayName: Apply Terraform Plan
       inputs:
         provider: 'azurerm'
         command: 'apply'
-        commandOptions: '$(Pipeline.Workspace)/plan/main.tfplan'
+        commandOptions: 'main.tfplan'
         workingDirectory: 'BloxOneDDI-Deploy'
         environmentServiceNameAzureRM: 'azure-infobloxlab'
 
