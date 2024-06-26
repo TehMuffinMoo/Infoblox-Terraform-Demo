@@ -34,7 +34,7 @@ data "bloxone_ipam_address_blocks" "parent_address_block" {
 }
 
 data "bloxone_ipam_next_available_address_blocks" "next_available_address_blocks" {
-  id = data.bloxone_ipam_address_blocks.parent_address_block.results.0.id
+  id = data.bloxone_ipam_address_blocks.parent_address_block.id
   address_block_count = var.address_block_count
   cidr = var.address_block_size
 }
