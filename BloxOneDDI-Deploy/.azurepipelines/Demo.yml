@@ -29,13 +29,10 @@ stages:
       inputs:
         provider: 'azurerm'
         command: 'plan'
-        commandOptions: '-out ../main.tfplan -var-file="demo.tfvars"'
+        commandOptions: '-out main.tfplan -var-file="demo.tfvars"'
         workingDirectory: 'BloxOneDDI-Deploy'
         environmentServiceNameAzureRM: 'azure-infobloxlab'
 
-- stage: Apply
-  displayName: 'Terraform Apply'
-  jobs:
   - job: TerraformApply
     displayName: 'Terraform Apply'
     steps:
@@ -45,12 +42,10 @@ stages:
       inputs:
         provider: 'azurerm'
         command: 'apply'
-        commandOptions: '../main.tfplan'
+        commandOptions: 'main.tfplan'
         workingDirectory: 'BloxOneDDI-Deploy'
         environmentServiceNameAzureRM: 'azure-infobloxlab'
 
-- stage: Destroy
-  displayName: 'Terraform Destroy'
   jobs:
   - job: TerraformDestroy
     displayName: 'Terraform Destroy'
