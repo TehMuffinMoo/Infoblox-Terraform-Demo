@@ -39,12 +39,12 @@ data "bloxone_ipam_next_available_address_blocks" "next_available_address_blocks
   cidr = var.address_block_size
 }
 
-resource "bloxone_ipam_address_block" "address_blocks" {
-    for_each = data.bloxone_ipam_next_available_address_blocks.next_available_address_blocks.results
+# resource "bloxone_ipam_address_block" "address_blocks" {
+#     for_each = data.bloxone_ipam_next_available_address_blocks.next_available_address_blocks.results
     
-    next_available_id = each.id
-    cidr = 24
-    name = var.comment
-    comment = var.comment
-    space = bloxone_ipam_ip_space.ip_space.id
-}
+#     next_available_id = each.id
+#     cidr = 24
+#     name = var.comment
+#     comment = var.comment
+#     space = bloxone_ipam_ip_space.ip_space.id
+# }
