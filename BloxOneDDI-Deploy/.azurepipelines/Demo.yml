@@ -29,7 +29,7 @@ stages:
       inputs:
         provider: 'azurerm'
         command: 'plan'
-        commandOptions: '-out main.tfplan -var-file="demo.tfvars -var "b1_api_key=$(B1DDI_API_KEY)"'
+        commandOptions: '-out main.tfplan -var-file="demo.tfvars"'
         workingDirectory: 'BloxOneDDI-Deploy'
         environmentServiceNameAzureRM: 'azure-infobloxlab'
 
