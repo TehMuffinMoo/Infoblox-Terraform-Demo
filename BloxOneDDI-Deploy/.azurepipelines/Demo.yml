@@ -28,7 +28,7 @@ stages:
       inputs:
         provider: 'azurerm'
         command: 'plan'
-        commandOptions: '-out main.tfplan --var-file=./BloxOneDDI-Deploy/demo.tfvars'
+        commandOptions: '-out main.tfplan --var-file="./BloxOneDDI-Deploy/demo.tfvars"'
         environmentServiceNameAzureRM: 'azure-infobloxlab'
 
 - stage: Apply
@@ -43,7 +43,7 @@ stages:
       inputs:
         provider: 'azurerm'
         command: 'apply'
-        commandOptions: 'main.tfplan --var-file=./BloxOneDDI-Deploy/demo.tfvars'
+        commandOptions: 'main.tfplan --var-file="./BloxOneDDI-Deploy/demo.tfvars"'
         environmentServiceNameAzureRM: 'azure-infobloxlab'
 
 - stage: Destroy
@@ -58,5 +58,5 @@ stages:
       inputs:
         provider: 'azurerm'
         command: 'destroy'
-        commandOptions: 'main.tfplan --var-file=./BloxOneDDI-Deploy/demo.tfvars'
+        commandOptions: 'main.tfplan --var-file="./BloxOneDDI-Deploy/demo.tfvars"'
         environmentServiceNameAzureRM: 'azure-infobloxlab'
