@@ -45,7 +45,7 @@ stages:
       inputs:
         provider: 'azurerm'
         command: 'apply'
-        commandOptions: 'main.tfplan -var-file="demo.tfvars"'
+        commandOptions: 'main.tfplan'
         workingDirectory: 'BloxOneDDI-Deploy'
         environmentServiceNameAzureRM: 'azure-infobloxlab'
 
