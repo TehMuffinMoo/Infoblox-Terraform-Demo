@@ -1,14 +1,3 @@
-terraform {
-  required_providers {
-    bloxone = {
-      source = "infobloxopen/bloxone"
-      version = "1.2.0"
-    }
-    azurerm = {
-    }
-  }
-}
-
 # Configure the Azure Provider
 provider "azurerm" {
   skip_provider_registration = true
