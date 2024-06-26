@@ -15,7 +15,7 @@ stages:
       displayName: 'List Files'
       inputs:
         script: |
-          cd ./BloxOneDDI-Demo
+          cd ./BloxOneDDI-Deploy
 
     - task: TerraformTaskV4@4
       displayName: Initialize Terraform
