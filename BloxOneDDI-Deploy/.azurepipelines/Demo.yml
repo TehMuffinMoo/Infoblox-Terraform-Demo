@@ -47,10 +47,17 @@ stages:
       displayName: Download Terraform Plan
       artifact: plan
 
-    - task: CmdLine@2
+    - task: TerraformTaskV4@4
+      displayName: Initialize Terraform
       inputs:
-        script: |
-          ls -l $(Pipeline.Workspace)/plan
+        provider: 'azurerm'
+        command: 'init'
+        backendServiceArm: 'azure-infobloxlab'
+        backendAzureRmResourceGroupName: 'infobloxlab'
+        backendAzureRmStorageAccountName: 'sainfobloxlab'
+        backendAzureRmContainerName: 'deploy-demo'
+        backendAzureRmKey: 'state.tfstate'
+        workingDirectory: 'BloxOneDDI-Deploy'
 
     - task: TerraformTaskV4@4
       name: terraformApply
@@ -71,6 +78,18 @@ stages:
     - download: current
       displayName: Download Terraform Plan
       artifact: plan
+
+    - task: TerraformTaskV4@4
+      displayName: Initialize Terraform
+      inputs:
+        provider: 'azurerm'
+        command: 'init'
+        backendServiceArm: 'azure-infobloxlab'
+        backendAzureRmResourceGroupName: 'infobloxlab'
+        backendAzureRmStorageAccountName: 'sainfobloxlab'
+        backendAzureRmContainerName: 'deploy-demo'
+        backendAzureRmKey: 'state.tfstate'
+        workingDirectory: 'BloxOneDDI-Deploy'
       
     - task: TerraformTaskV4@4
       name: terraformDestroy
