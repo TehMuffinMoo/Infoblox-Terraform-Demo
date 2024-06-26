@@ -7,4 +7,4 @@ address_block_count = 5
 address_block_size = 20
 subnet_count = 15
 subnet_size = 24
-b1_api_key=$(B1DDI_API_KEY)
+b1_api_key=${{B1DDI_API_KEY}}
