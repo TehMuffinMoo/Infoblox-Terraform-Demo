@@ -34,3 +34,7 @@ variable "subnet_size" {
   type        = number
   description = "The cidr size of the subnets to create"
 }
+variable "b1_api_key" {
+  type        = string
+  description = "BloxOne API Key"
+}

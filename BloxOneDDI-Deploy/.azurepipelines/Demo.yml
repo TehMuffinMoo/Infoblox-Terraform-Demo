@@ -4,6 +4,10 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest'
 
+variables:
+  - name: STORAGE_NAME
+    value: ${{ parameters.PortWebhook.storage_name }}
+
 stages:
 - stage: Plan
   displayName: 'Terraform Plan'
@@ -29,7 +33,7 @@ stages:
       inputs:
         provider: 'azurerm'
         command: 'plan'
-        commandOptions: '-out main.tfplan -var-file="demo.tfvars"'
+        commandOptions: '-out main.tfplan -var-file="demo.tfvars -var "b1_api_key=$(B1DDI_API_KEY)"'
         workingDirectory: 'BloxOneDDI-Deploy'
         environmentServiceNameAzureRM: 'azure-infobloxlab'
 
