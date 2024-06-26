@@ -15,7 +15,7 @@ pool:
 
 stages:
 - stage: Plan
-  condition: eq(parameters.action, 'Plan')
+  condition: ${{ eq(parameters.action, 'Plan') }}
   displayName: 'Terraform Plan'
   jobs:
   - job: TerraformPlan
@@ -48,7 +48,7 @@ stages:
       artifact: plan
 
 - stage: Apply
-  condition: eq(parameters.action, 'Apply')
+  condition: ${{ eq(parameters.action, 'Apply') }}
   displayName: 'Terraform Apply'
   jobs:
   - job: TerraformApply
@@ -81,7 +81,7 @@ stages:
         environmentServiceNameAzureRM: 'azure-infobloxlab'
 
 - stage: Destroy
-  condition: eq(parameters.action, 'Destroy')
+  condition: ${{ eq(parameters.action, 'Destroy') }}
   displayName: 'Terraform Destroy'
   jobs:
   - job: TerraformDestroy
