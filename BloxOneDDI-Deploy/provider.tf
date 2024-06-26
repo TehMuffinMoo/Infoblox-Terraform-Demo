@@ -4,15 +4,7 @@ terraform {
       source = "infobloxopen/bloxone"
       version = "1.2.0"
     }
-    azurerm = {
-    }
   }
-}
-
-# Configure the Azure Provider
-provider "azurerm" {
-  skip_provider_registration = true
-  features {}
 }
 
 # Configure the BloxOne Provider
