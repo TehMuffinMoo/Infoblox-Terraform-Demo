@@ -12,10 +12,11 @@ stages:
     displayName: 'Terraform Plan'
     steps:
     - task: CmdLine@2
-      displayName: 'List Files'
+      displayName: 'Change Working Directory'
       inputs:
         script: |
           cd ./BloxOneDDI-Deploy
+          ls -l
 
     - task: TerraformTaskV4@4
       displayName: Initialize Terraform
