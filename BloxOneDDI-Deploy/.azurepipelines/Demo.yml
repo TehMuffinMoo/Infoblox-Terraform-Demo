@@ -11,7 +11,7 @@ stages:
   - job: TerraformPlan
     displayName: 'Terraform Plan'
     steps:
-    - task: TerraformInstaller@0
+    - task: TerraformTaskV4@4
       inputs:
         terraformVersion: 'latest'
 
@@ -28,7 +28,7 @@ stages:
   - job: TerraformApply
     displayName: 'Terraform Apply'
     steps:
-    - task: TerraformInstaller@0
+    - task: TerraformTaskV4@4
       inputs:
         terraformVersion: 'latest'
 
@@ -45,7 +45,7 @@ stages:
   - job: TerraformDestroy
     displayName: 'Terraform Destroy'
     steps:
-    - task: TerraformInstaller@0
+    - task: TerraformTaskV4@4
       inputs:
         terraformVersion: 'latest'
 
