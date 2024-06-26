@@ -76,7 +76,7 @@ stages:
       inputs:
         provider: 'azurerm'
         command: 'apply'
-        commandOptions: '$(Pipeline.Workspace)/plan/main.tfplan'
+        commandOptions: '$(Pipeline.Workspace)/plan/main.tfplan --var-file=demo.tfvars -var b1_api_key=$(B1DDI_API_KEY)'
         workingDirectory: 'BloxOneDDI-Deploy'
         environmentServiceNameAzureRM: 'azure-infobloxlab'
 
@@ -105,5 +105,6 @@ stages:
       inputs:
         provider: 'azurerm'
         command: 'destroy'
+        commandOptions: '--var-file=demo.tfvars -var b1_api_key=$(B1DDI_API_KEY)'
         workingDirectory: 'BloxOneDDI-Deploy'
         environmentServiceNameAzureRM: 'azure-infobloxlab'
