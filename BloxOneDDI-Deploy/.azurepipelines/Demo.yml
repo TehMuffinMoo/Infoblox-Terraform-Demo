@@ -22,19 +22,13 @@ stages:
         backendAzureRmContainerName: 'deploy-demo'
         backendAzureRmKey: 'state.tfstate'
 
-    - task: CmdLine@2
-      displayName: 'List Files'
-      inputs:
-        script: |
-          ls -l
-
     - task: TerraformTaskV4@4
       name: terraformPlan
       displayName: Create Terraform Plan
       inputs:
         provider: 'azurerm'
         command: 'plan'
-        commandOptions: '-out main.tfplan --var-file=demo.tfvars'
+        commandOptions: '-out main.tfplan --var-file=./BloxOneDDI-Deploy/demo.tfvars'
         environmentServiceNameAzureRM: 'azure-infobloxlab'
 
 - stage: Apply
@@ -44,15 +38,13 @@ stages:
     displayName: 'Terraform Apply'
     steps:
     - task: TerraformTaskV4@4
+      name: terraformApply
+      displayName: Apply Terraform Plan
       inputs:
-        terraformVersion: 'latest'
-        backendServiceArm: 'azure-infobloxlab'
-
-    - script: |
-        terraform --version
-        terraform init
-        terraform apply -auto-approve tfplan --var-file=./demo.tfvars
-      displayName: 'Terraform Init and Apply'
+        provider: 'azurerm'
+        command: 'apply'
+        commandOptions: 'main.tfplan --var-file=./BloxOneDDI-Deploy/demo.tfvars'
+        environmentServiceNameAzureRM: 'azure-infobloxlab'
 
 - stage: Destroy
   displayName: 'Terraform Destroy'
@@ -61,12 +53,10 @@ stages:
     displayName: 'Terraform Destroy'
     steps:
     - task: TerraformTaskV4@4
+      name: terraformDestroy
+      displayName: Destroy Terraform Plan
       inputs:
-        terraformVersion: 'latest'
-        backendServiceArm: 'azure-infobloxlab'
-
-    - script: |
-        terraform --version
-        terraform init
-        terraform destroy -auto-approve tfplan --var-file=./demo.tfvars
-      displayName: 'Terraform Init and Destroy'
+        provider: 'azurerm'
+        command: 'destroy'
+        commandOptions: 'main.tfplan --var-file=./BloxOneDDI-Deploy/demo.tfvars'
+        environmentServiceNameAzureRM: 'azure-infobloxlab'
