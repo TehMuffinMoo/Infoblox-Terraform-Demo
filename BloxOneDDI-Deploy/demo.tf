@@ -1,6 +1,9 @@
 resource "bloxone_ipam_ip_space" "ip_space" {
   name = var.ip_space
   comment = var.comment
+  lifecycle {
+    ignore_changes = all
+  }
 }
 
 resource "bloxone_dns_view" "dns_view" {
@@ -12,7 +15,7 @@ resource "bloxone_dns_view" "dns_view" {
 resource "bloxone_ipam_address_block" "parent_address_block" {
     address = var.parent_address_block
     cidr = var.parent_address_block_cidr
-    name = "Terraform Demo - Parent Address Block"
+    name = var.comment
     space = bloxone_ipam_ip_space.ip_space.id
 }
 
