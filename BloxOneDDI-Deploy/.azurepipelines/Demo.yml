@@ -15,7 +15,7 @@ pool:
 
 stages:
 - stage: Plan
-  condition: ${{ or(eq(parameters.action, 'Plan'), eq(parameters.action, 'Apply'), eq(parameters.action, 'Destroy')) }}
+  condition: ${{ or(eq(parameters.action, 'Plan'), eq(parameters.action, 'Apply') }}
   displayName: 'Terraform Plan'
   jobs:
   - job: TerraformPlan
@@ -87,10 +87,6 @@ stages:
   - job: TerraformDestroy
     displayName: 'Terraform Destroy'
     steps:
-    - download: current
-      displayName: Download Terraform Plan
-      artifact: plan
-
     - task: TerraformTaskV4@4
       displayName: Initialize Terraform
       inputs:
@@ -109,6 +105,5 @@ stages:
       inputs:
         provider: 'azurerm'
         command: 'destroy'
-        commandOptions: '$(Pipeline.Workspace)/plan/main.tfplan'
         workingDirectory: 'BloxOneDDI-Deploy'
         environmentServiceNameAzureRM: 'azure-infobloxlab'
