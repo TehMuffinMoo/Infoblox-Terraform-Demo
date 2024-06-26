@@ -51,7 +51,7 @@ stages:
       inputs:
         provider: 'azurerm'
         command: 'apply'
-        commandOptions: 'main.tfplan'
+        commandOptions: 'plan/main.tfplan'
         workingDirectory: 'BloxOneDDI-Deploy'
         environmentServiceNameAzureRM: 'azure-infobloxlab'
 
@@ -70,6 +70,6 @@ stages:
       inputs:
         provider: 'azurerm'
         command: 'destroy'
-        commandOptions: 'main.tfplan'
+        commandOptions: 'plan/main.tfplan'
         workingDirectory: 'BloxOneDDI-Deploy'
         environmentServiceNameAzureRM: 'azure-infobloxlab'
