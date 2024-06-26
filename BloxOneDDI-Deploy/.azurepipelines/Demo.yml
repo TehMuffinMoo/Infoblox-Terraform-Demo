@@ -45,6 +45,13 @@ stages:
     - download: current
       artifact: plan
 
+    - task: CmdLine@2
+      inputs:
+        script: |
+          ls -l
+          cd plan
+          ls -l
+
     - task: TerraformTaskV4@4
       name: terraformApply
       displayName: Apply Terraform Plan
