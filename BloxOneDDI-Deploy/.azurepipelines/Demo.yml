@@ -33,6 +33,18 @@ stages:
         workingDirectory: 'BloxOneDDI-Deploy'
         environmentServiceNameAzureRM: 'azure-infobloxlab'
 
+    - publish: $(System.DefaultWorkingDirectory)/main.tfplan
+      artifact: plan
+
+- stage: Apply
+  displayName: 'Terraform Apply'
+  jobs:
+  - job: TerraformApply
+    displayName: 'Terraform Apply'
+    steps:
+    - download: current
+      artifact: plan
+
     - task: TerraformTaskV4@4
       name: terraformApply
       displayName: Apply Terraform Plan
@@ -43,6 +55,15 @@ stages:
         workingDirectory: 'BloxOneDDI-Deploy'
         environmentServiceNameAzureRM: 'azure-infobloxlab'
 
+- stage: Destroy
+  displayName: 'Terraform Destroy'
+  jobs:
+  - job: TerraformDestroy
+    displayName: 'Terraform Destroy'
+    steps:
+    - download: current
+      artifact: plan
+      
     - task: TerraformTaskV4@4
       name: terraformDestroy
       displayName: Destroy Terraform Plan
