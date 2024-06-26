@@ -12,15 +12,24 @@ stages:
     displayName: 'Terraform Plan'
     steps:
     - task: TerraformTaskV4@4
+      displayName: Initialize Terraform
       inputs:
-        terraformVersion: 'latest'
+        provider: 'azurerm'
+        command: 'init'
         backendServiceArm: 'azure-infobloxlab'
+        backendAzureRmResourceGroupName: 'infobloxlab'
+        backendAzureRmStorageAccountName: 'sainfobloxlab'
+        backendAzureRmContainerName: 'deploy-demo'
+        backendAzureRmKey: 'state.tfstate'
 
-    - script: |
-        terraform --version
-        terraform init
-        terraform plan -out=tfplan --var-file=./demo.tfvars
-      displayName: 'Terraform Init and Plan'
+    - task: TerraformTaskV4@4
+      name: terraformPlan
+      displayName: Create Terraform Plan
+      inputs:
+        provider: 'azurerm'
+        command: 'plan'
+        commandOptions: '-out main.tfplan'
+        environmentServiceNameAzureRM: 'azure-infobloxlab'
 
 - stage: Apply
   displayName: 'Terraform Apply'
