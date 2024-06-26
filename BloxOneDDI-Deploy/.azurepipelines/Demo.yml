@@ -4,10 +4,6 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest'
 
-variables:
-  - name: STORAGE_NAME
-    value: ${{ parameters.PortWebhook.storage_name }}
-
 stages:
 - stage: Plan
   displayName: 'Terraform Plan'
