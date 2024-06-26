@@ -28,7 +28,7 @@ stages:
       inputs:
         provider: 'azurerm'
         command: 'plan'
-        commandOptions: '-out main.tfplan --var-file=../demo.tfvars'
+        commandOptions: '-out main.tfplan --var-file=demo.tfvars'
         environmentServiceNameAzureRM: 'azure-infobloxlab'
 
 - stage: Apply
