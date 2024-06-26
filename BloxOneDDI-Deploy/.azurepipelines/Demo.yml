@@ -14,10 +14,10 @@ stages:
     - task: TerraformTaskV4@4
       inputs:
         terraformVersion: 'latest'
+        backendServiceArm: 'azure-infobloxlab'
 
     - script: |
         terraform --version
-        # terraform init -backend-config="storage_account_name=$(storageAccountName)" -backend-config="container_name=$(containerName)" -backend-config="key=$(key)" -backend-config="access_key=$(accessKey)"
         terraform init
         terraform plan -out=tfplan --var-file=./demo.tfvars
       displayName: 'Terraform Init and Plan'
@@ -31,10 +31,10 @@ stages:
     - task: TerraformTaskV4@4
       inputs:
         terraformVersion: 'latest'
+        backendServiceArm: 'azure-infobloxlab'
 
     - script: |
         terraform --version
-        # terraform init -backend-config="storage_account_name=$(storageAccountName)" -backend-config="container_name=$(containerName)" -backend-config="key=$(key)" -backend-config="access_key=$(accessKey)"
         terraform init
         terraform apply -auto-approve tfplan --var-file=./demo.tfvars
       displayName: 'Terraform Init and Apply'
@@ -48,10 +48,10 @@ stages:
     - task: TerraformTaskV4@4
       inputs:
         terraformVersion: 'latest'
+        backendServiceArm: 'azure-infobloxlab'
 
     - script: |
         terraform --version
-        # terraform init -backend-config="storage_account_name=$(storageAccountName)" -backend-config="container_name=$(containerName)" -backend-config="key=$(key)" -backend-config="access_key=$(accessKey)"
         terraform init
         terraform destroy -auto-approve tfplan --var-file=./demo.tfvars
       displayName: 'Terraform Init and Destroy'
