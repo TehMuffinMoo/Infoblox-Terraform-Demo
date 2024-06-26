@@ -21,6 +21,7 @@ stages:
         backendAzureRmStorageAccountName: 'sainfobloxlab'
         backendAzureRmContainerName: 'deploy-demo'
         backendAzureRmKey: 'state.tfstate'
+        workingDirectory: 'BloxOneDDI-Deploy'
 
     - task: TerraformTaskV4@4
       name: terraformPlan
