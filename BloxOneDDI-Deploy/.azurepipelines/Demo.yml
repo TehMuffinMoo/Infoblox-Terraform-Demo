@@ -15,7 +15,7 @@ pool:
 
 stages:
 - stage: Plan
-  condition: ${{ or(eq(parameters.action, 'Plan'), eq(parameters.action, 'Apply') }}
+  condition: ${{ or(eq(parameters.action, 'Plan'), eq(parameters.action, 'Apply')) }}
   displayName: 'Terraform Plan'
   jobs:
   - job: TerraformPlan
