@@ -33,9 +33,6 @@ stages:
         workingDirectory: 'BloxOneDDI-Deploy'
         environmentServiceNameAzureRM: 'azure-infobloxlab'
 
-  - job: TerraformApply
-    displayName: 'Terraform Apply'
-    steps:
     - task: TerraformTaskV4@4
       name: terraformApply
       displayName: Apply Terraform Plan
@@ -46,10 +43,6 @@ stages:
         workingDirectory: 'BloxOneDDI-Deploy'
         environmentServiceNameAzureRM: 'azure-infobloxlab'
 
-  jobs:
-  - job: TerraformDestroy
-    displayName: 'Terraform Destroy'
-    steps:
     - task: TerraformTaskV4@4
       name: terraformDestroy
       displayName: Destroy Terraform Plan
