@@ -27,24 +27,24 @@ resource "bloxone_dns_view" "dns_view" {
 #   ]
 # }
 
-# data "bloxone_ipam_address_blocks" "parent_address_block" {
-#   filters = {
-#     name = "example_address_block"
-#   }
-# }
+data "bloxone_ipam_address_blocks" "parent_address_block" {
+  filters = {
+    name = "example_address_block"
+  }
+}
 
-# data "bloxone_ipam_next_available_address_blocks" "next_available_address_blocks" {
-#   id = bloxone_ipam_address_blocks.parent_address_block.results.0.id
-#   address_block_count = var.address_block_count
-#   cidr = var.address_block_size
-# }
+data "bloxone_ipam_next_available_address_blocks" "next_available_address_blocks" {
+  id = bloxone_ipam_address_blocks.parent_address_block.results.0.id
+  address_block_count = var.address_block_count
+  cidr = var.address_block_size
+}
 
-# resource "bloxone_ipam_address_block" "address_blocks" {
-#     for_each = data.bloxone_ipam_next_available_address_blocks.next_available_address_blocks.results
+resource "bloxone_ipam_address_block" "address_blocks" {
+    for_each = data.bloxone_ipam_next_available_address_blocks.next_available_address_blocks.results
 
-#     address = each.key
-#     cidr = var.subnet_size
-#     name = var.comment
-#     comment = var.comment
-#     space = bloxone_ipam_ip_space.ip_space.id
-# }
+    address = each.key
+    cidr = var.subnet_size
+    name = var.comment
+    comment = var.comment
+    space = bloxone_ipam_ip_space.ip_space.id
+}
