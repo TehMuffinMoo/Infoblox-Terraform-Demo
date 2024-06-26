@@ -76,7 +76,7 @@ stages:
       inputs:
         provider: 'azurerm'
         command: 'apply'
-        commandOptions: '$(Pipeline.Workspace)/plan/main.tfplan --var-file=demo.tfvars -var b1_api_key=$(B1DDI_API_KEY)'
+        commandOptions: '$(Pipeline.Workspace)/plan/main.tfplan'
         workingDirectory: 'BloxOneDDI-Deploy'
         environmentServiceNameAzureRM: 'azure-infobloxlab'
 
