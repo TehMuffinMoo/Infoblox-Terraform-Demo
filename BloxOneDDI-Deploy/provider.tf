@@ -17,7 +17,7 @@ provider "azurerm" {
 
 # Configure the Azure Provider for new Subscription
 provider "azurerm" {
-  alias = "azurermsub"
+  alias = "azurerm-sub1"
   subscription_id = azurerm_subscription.infobloxlab.id
 }
 
