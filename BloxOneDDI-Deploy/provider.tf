@@ -6,6 +6,7 @@ terraform {
     }
     azurerm = {
     }
+  }
 }
 
 # Configure the Azure Provider
