@@ -15,6 +15,12 @@ provider "azurerm" {
   features {}
 }
 
+# Configure the Azure Provider for new Subscription
+provider "azurerm" {
+  alias = azurermsub
+  subscription_id = azurerm_subscription.infobloxlab.id
+}
+
 # Configure the BloxOne Provider
 provider "bloxone" {
   csp_url = "https://csp.infoblox.com"
