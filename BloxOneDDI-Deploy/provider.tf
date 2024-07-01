@@ -6,28 +6,24 @@ terraform {
     }
     azurerm = {
     }
+  backend "azurerm" {}
   }
 }
 
 # Configure the Azure Provider
 provider "azurerm" {
-  alias = "azurerm-sub1"
-  skip_provider_registration = true
+  alias = "main"
   features {}
 }
 
-# Configure the Azure Provider for new Subscription
 provider "azurerm" {
-  alias = "azurerm-sub2"
+  alias = "specific"
   subscription_id = azurerm_subscription.infobloxlab.id
+  features {}
 }
 
 # Configure the BloxOne Provider
 provider "bloxone" {
   csp_url = "https://csp.infoblox.com"
   api_key = var.b1_api_key
-}
-
-terraform {
-   backend "azurerm" {}
 }
