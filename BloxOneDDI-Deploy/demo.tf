@@ -7,7 +7,7 @@ data "bloxone_ipam_next_available_address_blocks" "next_available_address_blocks
 resource "bloxone_ipam_address_block" "address_blocks" {
     address = data.bloxone_ipam_next_available_address_blocks.next_available_address_blocks.results.0
     cidr = var.subnet_size
-    name = var.comment
-    comment = var.comment
+    name = var.subscription_name
+    comment = var.subscription_description
     space = data.bloxone_ipam_ip_spaces.ip_space.results.0.id
 }

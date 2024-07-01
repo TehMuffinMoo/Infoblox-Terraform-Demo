@@ -7,6 +7,12 @@ parameters:
   - Plan
   - Apply
   - Destroy
+- name: SubName
+  displayName: Subscription Name
+  type: string
+- name: SubDescription
+  displayName: Subscription Description
+  type: string
 
 trigger: none
 
@@ -39,7 +45,7 @@ stages:
       inputs:
         provider: 'azurerm'
         command: 'plan'
-        commandOptions: '-out main.tfplan --var-file=demo.tfvars -var b1_api_key=$(B1DDI_API_KEY)'
+        commandOptions: '-out main.tfplan --var-file=demo.tfvars -var b1_api_key=$(B1DDI_API_KEY) -var subscription_name=${{ parameters.SubName }} -var subscription_description=${{ parameters.SubDescription }}'
         workingDirectory: 'BloxOneDDI-Deploy'
         environmentServiceNameAzureRM: 'azure-infobloxlab'
 

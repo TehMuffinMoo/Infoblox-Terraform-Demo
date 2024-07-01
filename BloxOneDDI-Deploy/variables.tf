@@ -38,3 +38,11 @@ variable "b1_api_key" {
   type        = string
   description = "BloxOne API Key"
 }
+variable "subscription_name" {
+    type        = string
+    description = "Azure Subscription Name"
+}
+variable "subscription_description" {
+    type        = string
+    description = "Azure Subscription Description"
+}
