@@ -10,7 +10,7 @@ resource "bloxone_ipam_address_block" "address_block" {
 }
 
 resource "bloxone_ipam_address_block" "address_block_child" {
-    address = bloxone_ipam_address_block.address_block.id
+    address = data.bloxone_ipam_next_available_address_blocks.next_available_address_blocks_child.0
     cidr = 24
     name = "${var.subscription_name}-vnet"
     comment = "${var.subscription_description} Virtual Network"
@@ -21,7 +21,7 @@ resource "bloxone_ipam_address_block" "address_block_child" {
 }
 
 resource "bloxone_ipam_subnet" "subnet" {
-    address = bloxone_ipam_address_block.address_block_child.id
+    address = data.bloxone_ipam_next_available_subnets.next_available_address_blocks_child_snet.0
     cidr = 27
     name = "${var.subscription_name}-snet"
     comment = "${var.subscription_description} Subnet"
