@@ -6,7 +6,7 @@
 
 ## Create Azure Resource Group
 resource "azurerm_resource_group" "infobloxlab" {
-  name     = "rg-${var.subscription_description}"
+  name     = "rg-${var.subscription_name}"
   location = "UK South"
 }
 
