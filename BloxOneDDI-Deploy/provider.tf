@@ -15,12 +15,12 @@ provider "azurerm" {
   features {}
 }
 
-provider "azurerm" {
-  alias = "specific"
-  subscription_id = azurerm_subscription.infobloxlab.id
-  skip_provider_registration = true
-  features {}
-}
+#provider "azurerm" {
+#  alias = "specific"
+#  subscription_id = azurerm_subscription.infobloxlab.id
+#  features {}
+#  skip_provider_registration = true
+#}
 
 # Configure the BloxOne Provider
 provider "bloxone" {
