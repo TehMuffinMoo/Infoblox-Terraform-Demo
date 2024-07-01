@@ -18,10 +18,6 @@ variable "parent_address_block_cidr" {
   type        = number
   description = "The parent address block cidr size"
 }
-variable "subnet_count" {
-  type        = number
-  description = "The number of subnets to create in each address block"
-}
 variable "b1_api_key" {
   type        = string
   description = "BloxOne API Key"
