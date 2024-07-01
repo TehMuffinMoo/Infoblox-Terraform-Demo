@@ -10,6 +10,10 @@ resource "azurerm_resource_group" "infobloxlab" {
   location = "UK South"
 }
 
+output "output" {
+  value = data.bloxone_ipam_next_available_address_blocks.next_available_address_blocks.results.0
+}
+
 ## Create Network Allocation
 resource "bloxone_ipam_address_block" "address_block" {
     address = data.bloxone_ipam_next_available_address_blocks.next_available_address_blocks.results.0
