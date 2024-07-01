@@ -28,5 +28,5 @@ provider "bloxone" {
 }
 
 terraform {
-   backend "azurerm.main" {}
+   backend "azurerm" {}
 }
