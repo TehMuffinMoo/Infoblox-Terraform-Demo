@@ -25,6 +25,8 @@ stages:
   displayName: 'Terraform Plan'
   jobs:
   - job: TerraformPlan
+    timeoutInMinutes: 10 # how long to run the job before automatically cancelling
+    cancelTimeoutInMinutes: 2 # how much time to give 'run always even if cancelled tasks' before stopping them
     displayName: 'Terraform Plan'
     steps:
     - task: TerraformTaskV4@4
@@ -54,6 +56,8 @@ stages:
   displayName: 'Terraform Apply'
   jobs:
   - job: TerraformApply
+    timeoutInMinutes: 10 # how long to run the job before automatically cancelling
+    cancelTimeoutInMinutes: 2 # how much time to give 'run always even if cancelled tasks' before stopping them
     displayName: 'Terraform Apply'
     steps:
     - task: TerraformTaskV4@4
@@ -93,6 +97,8 @@ stages:
   displayName: 'Terraform Destroy'
   jobs:
   - job: TerraformDestroy
+    timeoutInMinutes: 10 # how long to run the job before automatically cancelling
+    cancelTimeoutInMinutes: 2 # how much time to give 'run always even if cancelled tasks' before stopping them
     displayName: 'Terraform Destroy'
     steps:
     - task: TerraformTaskV4@4
