@@ -6,8 +6,6 @@ terraform {
     }
     azurerm = {
     }
-  backend "azurerm" {}
-  }
 }
 
 # Configure the Azure Provider
@@ -26,4 +24,8 @@ provider "azurerm" {
 provider "bloxone" {
   csp_url = "https://csp.infoblox.com"
   api_key = var.b1_api_key
+}
+
+terraform {
+   backend "main" {}
 }
