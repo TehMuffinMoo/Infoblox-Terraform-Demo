@@ -12,45 +12,14 @@ resource "azurerm_resource_group" "infobloxlab" {
 
 ## Create Network Allocation
 resource "bloxone_ipam_address_block" "address_block" {
-  address = data.bloxone_ipam_next_available_address_blocks.next_available_address_blocks.results.0
-  cidr = 22
-  name = var.subscription_name
-  comment = var.subscription_description
-  space = data.bloxone_ipam_ip_spaces.ip_space.results.0.id
-
-# Other optional fields
-  tags = {
-    Description = "tf-demo"
-  }
-  asm_config = {
-    asm_threshold       = 90
-    enable              = "true"
-    enable_notification = "true"
-    forecast_period     = 10
-    growth_factor       = 10
-    growth_type         = "percent"
-    history             = 30
-    min_total           = 2
-    min_unused          = 10
-    reenable_date       = "2024-01-24T10:10:00+00:00"
-  }
-  dhcp_config = {
-    allow_unknown = true
-    ignore_list = [
-      {
-        type  = "hardware"
-        value = "aa:bb:cc:dd:ee:ff"
-      },
-      {
-        type  = "client_text"
-        value = "001d.a18b.36d0"
-      },
-      {
-        type  = "client_hex"
-        value = "333964392D4769302F31"
-      }
-    ]
-  }
+    address = data.bloxone_ipam_next_available_address_blocks.next_available_address_blocks.results.0
+    cidr = 22
+    name = var.subscription_name
+    comment = var.subscription_description
+    space = data.bloxone_ipam_ip_spaces.ip_space.results.0.id
+    tags = {
+      Description = "tf-demo"
+    }
 }
 
 ## Create Child Address Block for VNET
