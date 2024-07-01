@@ -36,7 +36,7 @@ stages:
         backendAzureRmResourceGroupName: 'infobloxlab'
         backendAzureRmStorageAccountName: 'sainfobloxlab'
         backendAzureRmContainerName: 'deploy-demo'
-        backendAzureRmKey: 'state.tfstate'
+        backendAzureRmKey: '${{ parameters.SubName }}.tfstate'
         workingDirectory: 'BloxOneDDI-Deploy'
 
     - task: TerraformTaskV4@4
