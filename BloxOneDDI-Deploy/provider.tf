@@ -12,13 +12,11 @@ terraform {
 # Configure the Azure Provider
 provider "azurerm" {
   alias = "main"
-  features {}
 }
 
 provider "azurerm" {
   alias = "specific"
   subscription_id = azurerm_subscription.infobloxlab.id
-  features {}
 }
 
 # Configure the BloxOne Provider
