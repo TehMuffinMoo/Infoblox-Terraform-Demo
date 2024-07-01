@@ -43,3 +43,8 @@ data "bloxone_ipam_next_available_subnets" "next_available_address_blocks_child_
   subnet_count = 1
   cidr = 24
 }
+
+data "azurerm_billing_enrollment_account_scope" "infobloxlab" {
+  billing_account_name    = "infobloxlab"
+  enrollment_account_name = "infobloxlab"
+}

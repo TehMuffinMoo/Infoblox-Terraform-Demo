@@ -1,3 +1,9 @@
+## Create Azure Subscription
+resource "azurerm_subscription" "infobloxlab" {
+  subscription_name = var.subscription_name
+  billing_scope_id  = data.azurerm_billing_enrollment_account_scope.infobloxlab.id
+}
+
 ## Create Subscription Allocation
 resource "bloxone_ipam_address_block" "address_block" {
     address = data.bloxone_ipam_next_available_address_blocks.next_available_address_blocks.results.0
