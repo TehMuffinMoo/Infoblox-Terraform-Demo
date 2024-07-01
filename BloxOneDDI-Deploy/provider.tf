@@ -11,13 +11,14 @@ terraform {
 
 # Configure the Azure Provider
 provider "azurerm" {
+  alias = "azurerm-sub1"
   skip_provider_registration = true
   features {}
 }
 
 # Configure the Azure Provider for new Subscription
 provider "azurerm" {
-  alias = "azurerm-sub1"
+  alias = "azurerm-sub2"
   subscription_id = azurerm_subscription.infobloxlab.id
 }
 
