@@ -9,5 +9,5 @@ resource "bloxone_ipam_address_block" "address_blocks" {
     cidr = var.subnet_size
     name = var.comment
     comment = var.comment
-    space = data.bloxone_ipam_ip_spaces.ip_space.id
+    space = data.bloxone_ipam_ip_spaces.ip_space.results.0.id
 }
