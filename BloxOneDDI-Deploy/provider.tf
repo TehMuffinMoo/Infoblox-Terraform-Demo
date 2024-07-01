@@ -17,6 +17,7 @@ provider "azurerm" {
 provider "azurerm" {
   alias = "specific"
   subscription_id = azurerm_subscription.infobloxlab.id
+  skip_provider_registration = true
   features {}
 }
 
