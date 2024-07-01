@@ -40,7 +40,7 @@ data "bloxone_ipam_next_available_address_blocks" "next_available_address_blocks
 }
 
 resource "bloxone_ipam_address_block" "address_blocks" {
-    address = data.bloxone_ipam_next_available_address_blocks.next_available_address_blocks.results
+    address = data.bloxone_ipam_next_available_address_blocks.next_available_address_blocks.results.0
     cidr = var.subnet_size
     name = var.comment
     comment = var.comment
