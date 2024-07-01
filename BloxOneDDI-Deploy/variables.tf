@@ -1,10 +1,10 @@
 variable "ip_space" {
   type        = string
-  description = "Name of the IP Space to create, and where the demo objects will be created in"
+  description = "Name of the IP Space to use, and where the demo objects will be created in"
 }
 variable "dns_view" {
   type        = string
-  description = "Name of the DNS View to create, and where the demo objects will be created in"
+  description = "Name of the DNS View to use, and where the demo objects will be created in"
 }
 variable "comment" {
   type        = string
