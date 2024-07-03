@@ -32,17 +32,17 @@ data "bloxone_ipam_next_available_address_blocks" "next_available_address_blocks
   cidr = 22
 }
 
-# data "bloxone_ipam_next_available_address_blocks" "next_available_address_blocks_child" {
-#   id = bloxone_ipam_address_block.address_block.id
-#   address_block_count = 1
-#   cidr = 24
-# }
+data "bloxone_ipam_next_available_address_blocks" "next_available_address_blocks_child" {
+  id = b1ddi_address_block.address_block.id
+  address_block_count = 1
+  cidr = 24
+}
 
-# data "bloxone_ipam_next_available_subnets" "next_available_address_blocks_child_snet" {
-#   id = bloxone_ipam_address_block.address_block_child.id
-#   subnet_count = 1
-#   cidr = 24
-# }
+data "bloxone_ipam_next_available_subnets" "next_available_address_blocks_child_snet" {
+  id = b1ddi_address_block.address_block_child.id
+  subnet_count = 1
+  cidr = 24
+}
 
 # data "azurerm_billing_enrollment_account_scope" "infobloxlab" {
 #   billing_account_name    = "infobloxlab"
