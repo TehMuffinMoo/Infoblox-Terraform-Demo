@@ -49,6 +49,8 @@ resource "bloxone_ipam_address_block" "address_block" {
         min_unused = {
           action = "inherit"
           display_name = "Global DHCP Properties"
+        }
+      }
       ddns_client_update = {
         action = "inherit"
         display_name = "Global DHCP Properties"
@@ -82,47 +84,50 @@ resource "bloxone_ipam_address_block" "address_block" {
         display_name = "Global DHCP Properties"
       }
       dhcp_config = {
-        "abandoned_reclaim_time" = {
+        abandoned_reclaim_time = {
           action = "override"
           display_name = "Global DHCP Properties"
         }
-        "abandoned_reclaim_time_v6" = {
+        abandoned_reclaim_time_v6 = {
           action = "override"
           display_name = "Global DHCP Properties"
         }
-        "allow_unknown" = {
+        allow_unknown = {
           action = "inherit"
           display_name = "Global DHCP Properties"
         }
-        "allow_unknown_v6" = {
+        allow_unknown_v6 = {
           action = "inherit"
           display_name = "Global DHCP Properties"
         }
-        "echo_client_id" = {
+        echo_client_id = {
           action = "override"
           display_name = "Global DHCP Properties"
         }
-        "filters" = {
+        filters = {
           action = "inherit"
           display_name = "Global DHCP Properties"
         }
-        "filters_v6" = {
+        filters_v6 = {
           action = "inherit"
           display_name = "Global DHCP Properties"
         }
-        "ignore_list" = {display_name = "Global DHCP Properties"
-        }
-        "lease_time" = {
+        ignore_list = {
           action = "inherit"
           display_name = "Global DHCP Properties"
         }
-        "lease_time_v6" = {
+        lease_time = {
+          action = "inherit"
+          display_name = "Global DHCP Properties"
+        }
+        lease_time_v6 = {
           action = "inherit"
           display_name = "Global DHCP Properties"
         }
       }
       dhcp_options = {
         action = "inherit"
+        display_name = "Global DHCP Properties"
       }
       header_option_filename = {
         action = "inherit"
