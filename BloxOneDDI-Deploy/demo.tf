@@ -120,17 +120,17 @@ resource "azurerm_virtual_network" "example" {
 
   subnet {
     name           = "${var.subscription_name}-snet-dev"
-    address_prefix = "${trim(data.bloxone_ipam_next_available_subnets.next_available_address_blocks_child_snet.results.0, "\""}/27"
+    address_prefix = "${trim(data.bloxone_ipam_next_available_subnets.next_available_address_blocks_child_snet.results.0, "\""}/27",
   }
 
   subnet {
     name           = "${var.subscription_name}-snet-test"
-    address_prefix = "${trim(data.bloxone_ipam_next_available_subnets.next_available_address_blocks_child_snet.results.1, "\""}/27"
+    address_prefix = "${trim(data.bloxone_ipam_next_available_subnets.next_available_address_blocks_child_snet.results.1, "\""}/27",
   }
 
   subnet {
     name           = "${var.subscription_name}-snet-stage"
-    address_prefix = "${trim(data.bloxone_ipam_next_available_subnets.next_available_address_blocks_child_snet.results.2, "\""}/27"
+    address_prefix = "${trim(data.bloxone_ipam_next_available_subnets.next_available_address_blocks_child_snet.results.2, "\""}/27",
   }
 
   tags = {
