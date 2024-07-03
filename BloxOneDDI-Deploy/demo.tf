@@ -115,22 +115,22 @@ resource "azurerm_virtual_network" "example" {
   name                = "${var.subscription_name}-vnet"
   location            = azurerm_resource_group.infobloxlab.location
   resource_group_name = azurerm_resource_group.infobloxlab.name
-  address_space       = ["${data.bloxone_ipam_next_available_address_blocks.next_available_address_blocks_child.results.0}/24",]
+  address_space       = ["${data.bloxone_ipam_next_available_address_blocks.next_available_address_blocks_child.results.0}/24"]
   dns_servers         = ["1.1.1.1", "1.0.0.1"]
 
   subnet {
     name           = "${var.subscription_name}-snet-dev"
-    address_prefix = "${trim(data.bloxone_ipam_next_available_subnets.next_available_address_blocks_child_snet.results.0, "\""}/27",
+    address_prefix = "${trim(data.bloxone_ipam_next_available_subnets.next_available_address_blocks_child_snet.results.0, "\"")}/27"
   }
 
   subnet {
     name           = "${var.subscription_name}-snet-test"
-    address_prefix = "${trim(data.bloxone_ipam_next_available_subnets.next_available_address_blocks_child_snet.results.1, "\""}/27",
+    address_prefix = "${trim(data.bloxone_ipam_next_available_subnets.next_available_address_blocks_child_snet.results.1, "\"")}/27"
   }
 
   subnet {
     name           = "${var.subscription_name}-snet-stage"
-    address_prefix = "${trim(data.bloxone_ipam_next_available_subnets.next_available_address_blocks_child_snet.results.2, "\""}/27",
+    address_prefix = "${trim(data.bloxone_ipam_next_available_subnets.next_available_address_blocks_child_snet.results.2, "\"")}/27"
   }
 
   tags = {
