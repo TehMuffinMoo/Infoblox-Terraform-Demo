@@ -21,7 +21,9 @@ resource "b1ddi_address_block" "address_block" {
       Description = "tf-demo"
     }
     lifecycle = {
-      ignore_changes = address
+      ignore_changes = [
+        address,
+      ]
     }
 }
 
@@ -36,7 +38,9 @@ resource "b1ddi_address_block" "address_block_child" {
       Description = "tf-demo"
     }
     lifecycle = {
-      ignore_changes = address
+      ignore_changes = [
+        address,
+      ]
     }
 }
 
