@@ -45,7 +45,7 @@ resource "b1ddi_address_block" "address_block_child" {
 }
 
 ## Create Dev Child Subnet for SNET
-resource "bloxone_ipam_subnet" "subnet-dev" {
+resource "b1ddi_subnet" "subnet-dev" {
     address = trim(data.bloxone_ipam_next_available_subnets.next_available_address_blocks_child_snet.results.0, "\"")
     cidr = 27
     name = "${var.subscription_name}-snet-dev"
@@ -62,7 +62,7 @@ resource "bloxone_ipam_subnet" "subnet-dev" {
 }
 
 ## Create Test Child Subnet for SNET
-resource "bloxone_ipam_subnet" "subnet-test" {
+resource "b1ddi_subnet" "subnet-test" {
     address = trim(data.bloxone_ipam_next_available_subnets.next_available_address_blocks_child_snet.results.1, "\"")
     cidr = 27
     name = "${var.subscription_name}-snet-test"
@@ -79,7 +79,7 @@ resource "bloxone_ipam_subnet" "subnet-test" {
 }
 
 ## Create Stage Child Subnet for SNET
-resource "bloxone_ipam_subnet" "subnet-stage" {
+resource "b1ddi_subnet" "subnet-stage" {
     address = trim(data.bloxone_ipam_next_available_subnets.next_available_address_blocks_child_snet.results.2, "\"")
     cidr = 27
     name = "${var.subscription_name}-snet-stage"
