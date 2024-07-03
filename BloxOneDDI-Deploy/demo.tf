@@ -144,27 +144,27 @@ resource "b1ddi_address_block" "address_block" {
 #     }
 # }
 
-## Create Virtual Network Security Group
-resource "azurerm_network_security_group" "infobloxlab_nsg" {
-  name                = "${var.subscription_name}-vnet-nsg"
-  location            = azurerm_resource_group.infobloxlab.location
-  resource_group_name = azurerm_resource_group.infobloxlab.name
-}
+# ## Create Virtual Network Security Group
+# resource "azurerm_network_security_group" "infobloxlab_nsg" {
+#   name                = "${var.subscription_name}-vnet-nsg"
+#   location            = azurerm_resource_group.infobloxlab.location
+#   resource_group_name = azurerm_resource_group.infobloxlab.name
+# }
 
-## Create Virtual Network / Subnet
-resource "azurerm_virtual_network" "example" {
-  name                = "${var.subscription_name}-vnet"
-  location            = azurerm_resource_group.infobloxlab.location
-  resource_group_name = azurerm_resource_group.infobloxlab.name
-  address_space       = [data.bloxone_ipam_next_available_subnets.next_available_address_blocks_child_snet.results.0]
-  dns_servers         = ["1.1.1.1", "1.0.0.1"]
+# ## Create Virtual Network / Subnet
+# resource "azurerm_virtual_network" "example" {
+#   name                = "${var.subscription_name}-vnet"
+#   location            = azurerm_resource_group.infobloxlab.location
+#   resource_group_name = azurerm_resource_group.infobloxlab.name
+#   address_space       = [data.bloxone_ipam_next_available_subnets.next_available_address_blocks_child_snet.results.0]
+#   dns_servers         = ["1.1.1.1", "1.0.0.1"]
 
-  subnet {
-    name           = "${var.subscription_name}-snet"
-    address_prefix = "${data.bloxone_ipam_next_available_subnets.next_available_address_blocks_child_snet.results.0}/24"
-  }
+#   subnet {
+#     name           = "${var.subscription_name}-snet"
+#     address_prefix = "${data.bloxone_ipam_next_available_subnets.next_available_address_blocks_child_snet.results.0}/24"
+#   }
 
-  tags = {
-    Description = "tf-demo"
-  }
-}
+#   tags = {
+#     Description = "tf-demo"
+#   }
+# }
