@@ -26,11 +26,11 @@ data "bloxone_ipam_address_blocks" "parent_address_block" {
   }
 }
 
-# data "bloxone_ipam_next_available_address_blocks" "next_available_address_blocks" {
-#   id = data.bloxone_ipam_address_blocks.parent_address_block.results.0.id
-#   address_block_count = 1
-#   cidr = 22
-# }
+data "bloxone_ipam_next_available_address_blocks" "next_available_address_blocks" {
+  id = data.bloxone_ipam_address_blocks.parent_address_block.results.0.id
+  address_block_count = 1
+  cidr = 22
+}
 
 # data "bloxone_ipam_next_available_address_blocks" "next_available_address_blocks_child" {
 #   id = bloxone_ipam_address_block.address_block.id
