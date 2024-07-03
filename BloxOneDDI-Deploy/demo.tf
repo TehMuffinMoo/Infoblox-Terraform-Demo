@@ -12,7 +12,7 @@ resource "azurerm_resource_group" "infobloxlab" {
 
 ## Create Network Allocation
 resource "bloxone_ipam_address_block" "address_block" {
-    address = 192.168.0.0
+    address = "192.168.0.0"
     cidr = 22
     name = var.subscription_name
     comment = var.subscription_description
