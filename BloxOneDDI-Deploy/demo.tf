@@ -18,9 +18,9 @@ resource "bloxone_ipam_address_block" "address_block" {
     name = var.subscription_name
     comment = var.subscription_description
     space = data.bloxone_ipam_ip_spaces.ip_space.results.0.id
-    tags = {
-      Description = "tf-demo"
-    }
+    # tags = {
+    #   Description = "tf-demo"
+    # }
     # inheritance_sources = {
     #   asm_config = {
     #     asm_enable_block = {
@@ -121,7 +121,8 @@ resource "bloxone_ipam_address_block" "address_block" {
 
 ## Create Child Address Block for VNET
 resource "bloxone_ipam_address_block" "address_block_child" {
-    address = data.bloxone_ipam_next_available_address_blocks.next_available_address_blocks_child.results.0
+    next_available_id = data.bloxone_ipam_next_available_address_blocks.next_available_address_blocks_child.id
+    #address = data.bloxone_ipam_next_available_address_blocks.next_available_address_blocks_child.results.0
     cidr = 24
     name = "${var.subscription_name}-vnet"
     comment = "${var.subscription_description} Virtual Network"
@@ -133,7 +134,8 @@ resource "bloxone_ipam_address_block" "address_block_child" {
 
 ## Create Child Subnet for SNET
 resource "bloxone_ipam_subnet" "subnet" {
-    address = data.bloxone_ipam_next_available_subnets.next_available_address_blocks_child_snet.results.0
+    next_available_id = data.bloxone_ipam_next_available_subnets.next_available_address_blocks_child_snet.id
+    #address = data.bloxone_ipam_next_available_subnets.next_available_address_blocks_child_snet.results.0
     cidr = 27
     name = "${var.subscription_name}-snet"
     comment = "${var.subscription_description} Subnet"
