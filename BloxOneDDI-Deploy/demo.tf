@@ -12,7 +12,7 @@ resource "azurerm_resource_group" "infobloxlab" {
 
 ## Create Network Allocation
 resource "b1ddi_address_block" "address_block" {
-    address = data.bloxone_ipam_next_available_address_blocks.next_available_address_blocks.results.0
+    address = trim(data.bloxone_ipam_next_available_address_blocks.next_available_address_blocks.results.0, '"')
     cidr = 22
     name = var.subscription_name
     comment = var.subscription_description
