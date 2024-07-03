@@ -111,7 +111,7 @@ resource "azurerm_network_security_group" "infobloxlab_nsg" {
 }
 
 ## Create Virtual Network / Subnet
-resource "azurerm_virtual_network" "example" {
+resource "azurerm_virtual_network" "infobloxlab_vnet" {
   name                = "${var.subscription_name}-vnet"
   location            = azurerm_resource_group.infobloxlab.location
   resource_group_name = azurerm_resource_group.infobloxlab.name
