@@ -24,126 +24,96 @@ resource "bloxone_ipam_address_block" "address_block" {
       asm_config = {
         asm_enable_block = {
           action = "inherit"
-          display_name = "Global DHCP Properties"
         }
         asm_growth_block = {
           action = "inherit"
-          display_name = "Global DHCP Properties"
         }
         asm_threshold = {
           action = "inherit"
-          display_name = "Global DHCP Properties"
         }
         forecast_period = {
           action = "inherit"
-          display_name = "Global DHCP Properties"
         }
         history = {
           action = "inherit"
-          display_name = "Global DHCP Properties"
         }
         min_total = {
           action = "inherit"
-          display_name = "Global DHCP Properties"
         }
         min_unused = {
           action = "inherit"
-          display_name = "Global DHCP Properties"
         }
       }
       ddns_client_update = {
         action = "inherit"
-        display_name = "Global DHCP Properties"
       }
       ddns_conflict_resolution_mode = {
         action = "inherit"
-        display_name = "Global DHCP Properties"
       }
       ddns_enabled = {
         action = "inherit"
-        display_name = "Global DHCP Properties"
       }
       ddns_hostname_block = {
         action = "inherit"
-        display_name = "Global DHCP Properties"
       }
       ddns_ttl_percent = {
         action = "inherit"
-        display_name = "Global DHCP Properties"
       }
       ddns_update_block = {
         action = "inherit"
-        display_name = "Global DHCP Properties"
       }
       ddns_update_on_renew = {
         action = "inherit"
-        display_name = "Global DHCP Properties"
       }
       ddns_use_conflict_resolution = {
         action = "inherit"
-        display_name = "Global DHCP Properties"
       }
       dhcp_config = {
         abandoned_reclaim_time = {
           action = "override"
-          display_name = "Global DHCP Properties"
         }
         abandoned_reclaim_time_v6 = {
           action = "override"
-          display_name = "Global DHCP Properties"
         }
         allow_unknown = {
           action = "inherit"
-          display_name = "Global DHCP Properties"
         }
         allow_unknown_v6 = {
           action = "inherit"
-          display_name = "Global DHCP Properties"
         }
         echo_client_id = {
           action = "override"
-          display_name = "Global DHCP Properties"
         }
         filters = {
           action = "inherit"
-          display_name = "Global DHCP Properties"
         }
         filters_v6 = {
           action = "inherit"
-          display_name = "Global DHCP Properties"
         }
         ignore_list = {
           action = "inherit"
-          display_name = "Global DHCP Properties"
         }
         lease_time = {
           action = "inherit"
-          display_name = "Global DHCP Properties"
         }
         lease_time_v6 = {
           action = "inherit"
-          display_name = "Global DHCP Properties"
         }
       }
       dhcp_options = {
         action = "inherit"
-        display_name = "Global DHCP Properties"
       }
       header_option_filename = {
         action = "inherit"
-        display_name = "Global DHCP Properties"
       }
       header_option_server_address = {
         action = "inherit"
-        display_name = "Global DHCP Properties"
       }
       header_option_server_name = {
         action = "inherit"
-        display_name = "Global DHCP Properties"
       }
       hostname_rewrite_block = {
         action = "inherit"
-        display_name = "Global DHCP Properties"
       }
     }
 }
