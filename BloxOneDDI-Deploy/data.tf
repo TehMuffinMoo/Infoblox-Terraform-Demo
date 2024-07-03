@@ -44,7 +44,7 @@ data "bloxone_ipam_address_blocks" "parent_address_block" {
 #   cidr = 24
 # }
 
-data "azurerm_billing_enrollment_account_scope" "infobloxlab" {
-  billing_account_name    = "infobloxlab"
-  enrollment_account_name = "infobloxlab"
-}
+# data "azurerm_billing_enrollment_account_scope" "infobloxlab" {
+#   billing_account_name    = "infobloxlab"
+#   enrollment_account_name = "infobloxlab"
+# }
