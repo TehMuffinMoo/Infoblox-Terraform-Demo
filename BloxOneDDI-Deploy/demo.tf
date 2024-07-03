@@ -20,7 +20,7 @@ resource "b1ddi_address_block" "address_block" {
     tags = {
       Description = "tf-demo"
     }
-    lifecycle = {
+    lifecycle {
       ignore_changes = [
         address,
       ]
@@ -37,7 +37,7 @@ resource "b1ddi_address_block" "address_block_child" {
     tags = {
       Description = "tf-demo"
     }
-    lifecycle = {
+    lifecycle {
       ignore_changes = [
         address,
       ]
