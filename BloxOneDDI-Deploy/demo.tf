@@ -19,6 +19,7 @@ resource "b1ddi_address_block" "address_block" {
     space = data.bloxone_ipam_ip_spaces.ip_space.results.0.id
     tags = {
       Description = "tf-demo"
+      Owner = "${var.subscription_description}"
     }
     lifecycle {
       ignore_changes = [
@@ -36,6 +37,7 @@ resource "b1ddi_address_block" "address_block_child" {
     space = data.bloxone_ipam_ip_spaces.ip_space.results.0.id
     tags = {
       Description = "tf-demo"
+      Owner = "${var.subscription_description}"
     }
     lifecycle {
       ignore_changes = [
@@ -53,6 +55,8 @@ resource "b1ddi_subnet" "subnet-dev" {
     space = data.bloxone_ipam_ip_spaces.ip_space.results.0.id
     tags = {
       Description = "tf-demo"
+      Environment = "Development"
+      Owner = "${var.subscription_description}"
     }
     lifecycle {
       ignore_changes = [
@@ -70,6 +74,8 @@ resource "b1ddi_subnet" "subnet-test" {
     space = data.bloxone_ipam_ip_spaces.ip_space.results.0.id
     tags = {
       Description = "tf-demo"
+      Environment = "Testing"
+      Owner = "${var.subscription_description}"
     }
     lifecycle {
       ignore_changes = [
@@ -87,6 +93,8 @@ resource "b1ddi_subnet" "subnet-stage" {
     space = data.bloxone_ipam_ip_spaces.ip_space.results.0.id
     tags = {
       Description = "tf-demo"
+      Environment = "Staging"
+      Owner = "${var.subscription_description}"
     }
     lifecycle {
       ignore_changes = [
@@ -127,5 +135,6 @@ resource "azurerm_virtual_network" "example" {
 
   tags = {
     Description = "tf-demo"
+    Owner = "${var.subscription_description}"
   }
 }
