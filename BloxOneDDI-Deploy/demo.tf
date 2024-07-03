@@ -171,8 +171,8 @@
 # }
 
 resource "bloxone_ipam_address_block" "example_tags" {
-  address = "10.0.0.0"
-  cidr    = 8
+  address = "192.168.0.0"
+  cidr    = 22
   space   = data.bloxone_ipam_ip_spaces.ip_space.results.0.id
 
   # Other optional fields
