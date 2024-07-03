@@ -32,7 +32,7 @@ provider "bloxone" {
   api_key = var.b1_api_key
 }
 provider "b1ddi" {
-  host = "https://csp.infoblox.com"
+  host = "csp.infoblox.com"
   api_key = var.b1_api_key
 }
 
