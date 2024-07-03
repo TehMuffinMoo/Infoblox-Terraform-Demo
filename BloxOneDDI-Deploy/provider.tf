@@ -1,10 +1,10 @@
 terraform {
   required_providers {
-    # bloxone = {
-    #   source = "infobloxopen/bloxone"
-    #   version = "1.2.0"
-    # }
     bloxone = {
+      source = "infobloxopen/bloxone"
+      version = "1.2.0"
+    }
+    b1ddi = {
       source = "infobloxopen/b1ddi"
       version = "0.1.5"
     }
