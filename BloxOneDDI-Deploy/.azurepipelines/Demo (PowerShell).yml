@@ -1,0 +1,77 @@
+parameters:
+- name: action
+  displayName: Action
+  type: string
+  default: Deploy
+  values:
+  - Deploy
+  - Destroy
+- name: EnvName
+  displayName: Environment Name
+  type: string
+- name: EnvDescription
+  displayName: Environment Description
+  type: string
+- name: EnvLocation
+  displayName: Environment Location
+  type: string
+
+trigger: none
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+stages:
+- stage: Deploy
+  condition: ${{ eq(parameters.action, 'Deploy') }}
+  displayName: 'Deploy Environment'
+  jobs:
+  - job: DeployEnvironment
+    timeoutInMinutes: 10 # how long to run the job before automatically cancelling
+    cancelTimeoutInMinutes: 2 # how much time to give 'run always even if cancelled tasks' before stopping them
+    displayName: 'Deploy Environment'
+    - task: PowerShell@2
+      name: 'Install PowerShell Modules'
+      inputs:
+        targetType: 'inline'
+        script: |
+          Install-Module Az.Accounts,Az.Compute,Az.MarketplaceOrdering,Az.Network,ibPS
+
+    - task: PowerShell@2
+      name: 'Deploy Azure Environment'
+      inputs:
+        targetType: 'inline'
+        script: |
+          $Location = ${{ parameters.EnvLocation }}
+          New-AzResourceGroup -Name ${{ parameters.EnvName }} -Tag @{'Type'='tf-demo'} -Location $Location
+
+- stage: Destroy
+  condition: ${{ eq(parameters.action, 'Destroy') }}
+  displayName: 'Terraform Destroy'
+  jobs:
+  - job: TerraformDestroy
+    timeoutInMinutes: 10 # how long to run the job before automatically cancelling
+    cancelTimeoutInMinutes: 2 # how much time to give 'run always even if cancelled tasks' before stopping them
+    displayName: 'Terraform Destroy'
+    steps:
+    - task: TerraformTaskV4@4
+      displayName: Initialize Terraform
+      inputs:
+        provider: 'azurerm'
+        command: 'init'
+        backendServiceArm: 'azure-infobloxlab'
+        backendAzureRmResourceGroupName: 'infobloxlab'
+        backendAzureRmStorageAccountName: 'sainfobloxlab'
+        backendAzureRmContainerName: 'deploy-demo'
+        backendAzureRmKey: '${{ parameters.SubName }}.tfstate'
+        workingDirectory: 'BloxOneDDI-Deploy'
+      
+    - task: TerraformTaskV4@4
+      name: terraformDestroy
+      displayName: Destroy Terraform Plan
+      inputs:
+        provider: 'azurerm'
+        command: 'destroy'
+        commandOptions: '--var-file=demo.tfvars -var b1_api_key=$(B1DDI_API_KEY) -var subscription_name="${{ parameters.SubName }}" -var subscription_description="${{ parameters.SubDescription }}"'
+        workingDirectory: 'BloxOneDDI-Deploy'
+        environmentServiceNameAzureRM: 'azure-infobloxlab'
