@@ -12,7 +12,8 @@ resource "azurerm_resource_group" "infobloxlab" {
 
 ## Create Network Allocation
 resource "bloxone_ipam_address_block" "address_block" {
-    address = "192.168.0.0"
+    next_available_id = data.bloxone_ipam_next_available_address_blocks.next_available_address_blocks.id
+    #address = data.bloxone_ipam_next_available_address_blocks.next_available_address_blocks.results.0
     cidr = 22
     name = var.subscription_name
     comment = var.subscription_description
@@ -20,102 +21,102 @@ resource "bloxone_ipam_address_block" "address_block" {
     tags = {
       Description = "tf-demo"
     }
-    inheritance_sources = {
-      asm_config = {
-        asm_enable_block = {
-          action = "inherit"
-        }
-        asm_growth_block = {
-          action = "inherit"
-        }
-        asm_threshold = {
-          action = "inherit"
-        }
-        forecast_period = {
-          action = "inherit"
-        }
-        history = {
-          action = "inherit"
-        }
-        min_total = {
-          action = "inherit"
-        }
-        min_unused = {
-          action = "inherit"
-        }
-      }
-      ddns_client_update = {
-        action = "inherit"
-      }
-      ddns_conflict_resolution_mode = {
-        action = "inherit"
-      }
-      ddns_enabled = {
-        action = "inherit"
-      }
-      ddns_hostname_block = {
-        action = "inherit"
-      }
-      ddns_ttl_percent = {
-        action = "inherit"
-      }
-      ddns_update_block = {
-        action = "inherit"
-      }
-      ddns_update_on_renew = {
-        action = "inherit"
-      }
-      ddns_use_conflict_resolution = {
-        action = "inherit"
-      }
-      dhcp_config = {
-        abandoned_reclaim_time = {
-          action = "override"
-        }
-        abandoned_reclaim_time_v6 = {
-          action = "override"
-        }
-        allow_unknown = {
-          action = "inherit"
-        }
-        allow_unknown_v6 = {
-          action = "inherit"
-        }
-        echo_client_id = {
-          action = "override"
-        }
-        filters = {
-          action = "inherit"
-        }
-        filters_v6 = {
-          action = "inherit"
-        }
-        ignore_list = {
-          action = "inherit"
-        }
-        lease_time = {
-          action = "inherit"
-        }
-        lease_time_v6 = {
-          action = "inherit"
-        }
-      }
-      dhcp_options = {
-        action = "inherit"
-      }
-      header_option_filename = {
-        action = "inherit"
-      }
-      header_option_server_address = {
-        action = "inherit"
-      }
-      header_option_server_name = {
-        action = "inherit"
-      }
-      hostname_rewrite_block = {
-        action = "inherit"
-      }
-    }
+    # inheritance_sources = {
+    #   asm_config = {
+    #     asm_enable_block = {
+    #       action = "inherit"
+    #     }
+    #     asm_growth_block = {
+    #       action = "inherit"
+    #     }
+    #     asm_threshold = {
+    #       action = "inherit"
+    #     }
+    #     forecast_period = {
+    #       action = "inherit"
+    #     }
+    #     history = {
+    #       action = "inherit"
+    #     }
+    #     min_total = {
+    #       action = "inherit"
+    #     }
+    #     min_unused = {
+    #       action = "inherit"
+    #     }
+    #   }
+    #   ddns_client_update = {
+    #     action = "inherit"
+    #   }
+    #   ddns_conflict_resolution_mode = {
+    #     action = "inherit"
+    #   }
+    #   ddns_enabled = {
+    #     action = "inherit"
+    #   }
+    #   ddns_hostname_block = {
+    #     action = "inherit"
+    #   }
+    #   ddns_ttl_percent = {
+    #     action = "inherit"
+    #   }
+    #   ddns_update_block = {
+    #     action = "inherit"
+    #   }
+    #   ddns_update_on_renew = {
+    #     action = "inherit"
+    #   }
+    #   ddns_use_conflict_resolution = {
+    #     action = "inherit"
+    #   }
+    #   dhcp_config = {
+    #     abandoned_reclaim_time = {
+    #       action = "override"
+    #     }
+    #     abandoned_reclaim_time_v6 = {
+    #       action = "override"
+    #     }
+    #     allow_unknown = {
+    #       action = "inherit"
+    #     }
+    #     allow_unknown_v6 = {
+    #       action = "inherit"
+    #     }
+    #     echo_client_id = {
+    #       action = "override"
+    #     }
+    #     filters = {
+    #       action = "inherit"
+    #     }
+    #     filters_v6 = {
+    #       action = "inherit"
+    #     }
+    #     ignore_list = {
+    #       action = "inherit"
+    #     }
+    #     lease_time = {
+    #       action = "inherit"
+    #     }
+    #     lease_time_v6 = {
+    #       action = "inherit"
+    #     }
+    #   }
+    #   dhcp_options = {
+    #     action = "inherit"
+    #   }
+    #   header_option_filename = {
+    #     action = "inherit"
+    #   }
+    #   header_option_server_address = {
+    #     action = "inherit"
+    #   }
+    #   header_option_server_name = {
+    #     action = "inherit"
+    #   }
+    #   hostname_rewrite_block = {
+    #     action = "inherit"
+    #   }
+    # }
 }
 
 ## Create Child Address Block for VNET
