@@ -15,7 +15,7 @@ parameters:
   type: string
 - name: Region
   displayName: Azure Region
-  default: UKS
+  default: UK South
   values:
   - UK South
   - UK West
