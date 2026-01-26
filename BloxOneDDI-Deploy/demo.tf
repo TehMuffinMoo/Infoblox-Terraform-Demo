@@ -13,7 +13,7 @@ resource "azurerm_resource_group" "infobloxlab" {
 ## Create Network Allocation
 resource "bloxone_ipam_address_block" "address_block" {
     address = trim(data.bloxone_ipam_next_available_address_blocks.next_available_address_blocks.results.0, "\"")
-    cidr = 22
+    cidr = 23
     name = var.subscription_name
     comment = var.subscription_description
     space = data.bloxone_ipam_ip_spaces.ip_space.results.0.id
@@ -170,7 +170,7 @@ resource "bloxone_dns_acl" "ddns_acl" {
     {
       access  = "allow"
       element = "ip"
-      address = "${trim(data.bloxone_ipam_next_available_address_blocks.next_available_address_blocks.results.0, "\"")}/22"
+      address = "${trim(data.bloxone_ipam_next_available_address_blocks.next_available_address_blocks.results.0, "\"")}/23"
     },
   ]
 }
