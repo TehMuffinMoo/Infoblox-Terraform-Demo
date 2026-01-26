@@ -1,11 +1,11 @@
 ## Create Azure Subscription
-# resource "azurerm_subscription" "infobloxlab" {
+# resource "azurerm_subscription" "sub" {
 #   subscription_name = var.subscription_name
 #   billing_scope_id  = data.azurerm_billing_enrollment_account_scope.infobloxlab.id
 # }
 
 ## Create Azure Resource Group
-resource "azurerm_resource_group" "infobloxlab" {
+resource "azurerm_resource_group" "rg" {
   name     = "rg-${lower(var.subscription_name)}"
   location = var.region
 }
@@ -100,10 +100,10 @@ resource "bloxone_ipam_subnet" "subnets" {
 
 
 ## Create Virtual Network Security Group
-resource "azurerm_network_security_group" "infobloxlab_nsg" {
+resource "azurerm_network_security_group" "nsg" {
   name                = "vnet-nsg-${lower(var.subscription_name)}"
-  location            = azurerm_resource_group.infobloxlab.location
-  resource_group_name = azurerm_resource_group.infobloxlab.name
+  location            = azurerm_resource_group.rg.location
+  resource_group_name = azurerm_resource_group.rg.name
 }
 
 ## Create Virtual Network / Subnet
