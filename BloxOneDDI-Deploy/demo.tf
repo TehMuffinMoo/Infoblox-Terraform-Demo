@@ -155,6 +155,26 @@ resource "azurerm_virtual_network" "infobloxlab_vnet" {
   }
 }
 
+## Create DDNS Update ACL
+resource "bloxone_dns_acl" "ddns_acl" {
+  name = "${var.subscription_name} DDNS ACL"
+
+  # Other Optional fields
+  comment = "${var.subscription_name} ACL to allow DDNS updates"
+  tags = {
+    Description = "tf-demo"
+    Owner       = var.subscription_description
+    Region = "${local.region_reverse_map[var.region]}"
+  }
+  list = [
+    {
+      access  = "allow"
+      element = "ip"
+      address = "${trim(data.bloxone_ipam_next_available_address_blocks.next_available_address_blocks.results.0, "\"")}/22"
+    },
+  ]
+}
+
 ## Create DNS Zone
 resource "bloxone_dns_auth_zone" "auth_zone" {
   fqdn         = "${lower(var.subscription_name)}.${local.region_reverse_map[var.region]}.az.corp.local."
@@ -175,9 +195,8 @@ resource "bloxone_dns_auth_zone" "auth_zone" {
   ]
   update_acl = [
     {
-      access  = "allow"
-      element = "ip"
-      address = "${trim(data.bloxone_ipam_next_available_address_blocks.next_available_address_blocks.results.0, "\"")}/22"
+      element = "acl"
+      acl     = bloxone_dns_acl.auth_zone_acl.id
     },
     {
       access  = "deny"
@@ -193,7 +212,3 @@ resource "bloxone_dns_auth_zone" "auth_zone" {
 }
 
 
-##     {
-##      element = "acl"
-##      acl     = bloxone_dns_acl.auth_zone_acl.id
-##    },
