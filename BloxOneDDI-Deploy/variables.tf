@@ -22,6 +22,10 @@ variable "b1_api_key" {
   type        = string
   description = "BloxOne API Key"
 }
+variable "b1_csp_url" {
+  type        = string
+  description = "Infoblox Portal URL"
+}
 variable "subscription_name" {
     type        = string
     description = "Azure Subscription Name"

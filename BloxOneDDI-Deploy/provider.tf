@@ -24,7 +24,7 @@ provider "azurerm" {
 
 # Configure the BloxOne Provider
 provider "bloxone" {
-  csp_url = "https://csp.infoblox.com"
+  csp_url = var.b1_csp_url
   api_key = var.b1_api_key
 }
 
