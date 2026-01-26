@@ -162,6 +162,9 @@ output "debug_address_string" {
 ## Create DNS ACL
 resource "bloxone_dns_acl" "auth_zone_acl" {
   name = "${lower(var.subscription_name)}-acl"
+  depends_on = [
+    data.bloxone_ipam_next_available_address_blocks.next_available_address_blocks_child
+  ]
   list = [
     {
       access  = "allow"
