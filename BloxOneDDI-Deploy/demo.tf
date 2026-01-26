@@ -187,6 +187,11 @@ resource "bloxone_dns_auth_zone" "auth_zone" {
     Owner       = var.subscription_description
     Region = "${local.region_reverse_map[var.region]}"
   }
+  inheritance_sources = {
+    update_acl = {
+      action = "override"
+    }
+  }
   query_acl = [
     {
       access  = "allow"
@@ -194,14 +199,9 @@ resource "bloxone_dns_auth_zone" "auth_zone" {
     },
   ]
   update_acl = [
-#    {
-#      element = "acl"
-#      acl     = bloxone_dns_acl.ddns_acl.id
-#    },
     {
-      access  = "allow"
-      element = "ip"
-      address = "${trim(data.bloxone_ipam_next_available_address_blocks.next_available_address_blocks.results.0, "\"")}/22"
+      element = "acl"
+      acl     = bloxone_dns_acl.ddns_acl.id
     },
     {
       access  = "deny"
