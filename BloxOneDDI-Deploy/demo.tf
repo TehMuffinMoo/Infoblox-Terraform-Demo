@@ -163,7 +163,7 @@ output "debug_address_string" {
 resource "bloxone_dns_acl" "auth_zone_acl" {
   name = "${lower(var.subscription_name)}-acl"
   depends_on = [
-    data.bloxone_ipam_next_available_address_blocks.next_available_address_blocks_child
+    bloxone_ipam_address_block.address_block_child
   ]
   list = [
     {
@@ -209,6 +209,6 @@ resource "bloxone_dns_auth_zone" "auth_zone" {
     },
   ]
   depends_on = [
-    data.bloxone_ipam_next_available_address_blocks.next_available_address_blocks_child
+    bloxone_ipam_address_block.address_block_child
   ]
 }
