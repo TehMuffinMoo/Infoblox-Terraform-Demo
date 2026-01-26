@@ -110,17 +110,9 @@ resource "azurerm_network_security_group" "infobloxlab_nsg" {
   resource_group_name = azurerm_resource_group.infobloxlab.name
 }
 
-output "debug_parent_block" {
-  value = data.bloxone_ipam_address_blocks.parent_address_block
-}
-
-output "debug_child_vnet" {
-  value = data.bloxone_ipam_next_available_address_blocks.next_available_address_blocks
-}
-
-output "debug_child_subnets" {
-  value = data.bloxone_ipam_next_available_subnets.next_available_address_blocks_child_snet
-}
+##output "debug_parent_block" {
+##  value = data.bloxone_ipam_address_blocks.parent_address_block
+##}
 
 
 ## Create Virtual Network / Subnet
