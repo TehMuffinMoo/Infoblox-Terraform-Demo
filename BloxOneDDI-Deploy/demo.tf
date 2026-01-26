@@ -11,7 +11,7 @@ resource "azurerm_resource_group" "infobloxlab" {
 }
 
 ## Create Network Allocation
-resource "bloxone_ipam_address_block " "address_block" {
+resource "bloxone_ipam_address_block" "address_block" {
     address = trim(data.bloxone_ipam_next_available_address_blocks.next_available_address_blocks.results.0, "\"")
     cidr = 22
     name = var.subscription_name
@@ -29,7 +29,7 @@ resource "bloxone_ipam_address_block " "address_block" {
 }
 
 ## Create Child Address Block for VNET
-resource "bloxone_ipam_address_block " "address_block_child" {
+resource "bloxone_ipam_address_block" "address_block_child" {
     address = trim(data.bloxone_ipam_next_available_address_blocks.next_available_address_blocks_child.results.0, "\"")
     cidr = 24
     name = "${var.subscription_name}-vnet"

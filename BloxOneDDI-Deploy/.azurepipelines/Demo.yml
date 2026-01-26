@@ -30,6 +30,7 @@ stages:
     displayName: 'Terraform Plan'
     steps:
     - task: TerraformInstaller@1
+      displayName: 'Install Terraform'
       inputs:
         terraformVersion: 'latest'
     - task: TerraformTaskV4@4
