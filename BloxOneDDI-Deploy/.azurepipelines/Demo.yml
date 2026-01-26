@@ -1,6 +1,7 @@
 parameters:
 - name: action
   displayName: Terraform Action
+  type: string
   default: Plan
   values:
   - Plan
@@ -14,6 +15,7 @@ parameters:
   type: string
 - name: Region
   displayName: Azure Region
+  type: string
   default: UK South
   values:
   - UK South
