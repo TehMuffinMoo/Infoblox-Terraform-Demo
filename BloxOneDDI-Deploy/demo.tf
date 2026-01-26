@@ -29,6 +29,10 @@ resource "bloxone_ipam_address_block" "parent" {
   }
 }
 
+locals {
+  parent_block_addr = trim(data.bloxone_ipam_next_available_address_blocks.next_available_parent.results[0], "\"")
+}
+
 ## Create Child Address Block for VNET
 data "bloxone_ipam_next_available_address_blocks" "child" {
   id                  = bloxone_ipam_address_block.parent.id
@@ -134,6 +138,10 @@ resource "azurerm_virtual_network" "vnet" {
   }
 }
 
+locals {
+  ddns_acl_address = "${bloxone_ipam_address_block.child.address}/${bloxone_ipam_address_block.child.cidr}"
+}
+
 ## Create DDNS Update ACL
 resource "bloxone_dns_acl" "ddns" {
   name    = "${var.subscription_name} DDNS ACL"
@@ -149,7 +157,7 @@ resource "bloxone_dns_acl" "ddns" {
     {
       access  = "allow"
       element = "ip"
-      address = "${bloxone_ipam_address_block.child.address}/${bloxone_ipam_address_block.child.cidr}"
+      address = local.ddns_acl_address
     }
   ]
 }
