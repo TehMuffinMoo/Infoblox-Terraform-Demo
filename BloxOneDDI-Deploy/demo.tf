@@ -174,7 +174,7 @@ resource "bloxone_dns_acl" "auth_zone_acl" {
 
 ## Create DNS Zone
 resource "bloxone_dns_auth_zone" "auth_zone" {
-  fqdn         = "${lower(var.subscription_name)}.${local.region_map[var.region]}.az.corp.local."
+  fqdn         = "${lower(var.subscription_name)}.${local.region_reverse_map[var.region]}.az.corp.local."
   primary_type = "cloud"
 
   # Other optional fields
