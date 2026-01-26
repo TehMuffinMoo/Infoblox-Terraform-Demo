@@ -110,6 +110,11 @@ resource "azurerm_network_security_group" "infobloxlab_nsg" {
   resource_group_name = azurerm_resource_group.infobloxlab.name
 }
 
+output "debug_parent_block" {
+  value = data.bloxone_ipam_address_blocks.parent_address_block
+}
+
+
 ## Create Virtual Network / Subnet
 resource "azurerm_virtual_network" "infobloxlab_vnet" {
   name                = "${var.subscription_name}-vnet"
