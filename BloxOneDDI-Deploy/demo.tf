@@ -20,7 +20,7 @@ resource "bloxone_ipam_address_block" "address_block" {
     tags = {
       Description = "tf-demo"
       Owner = "${var.subscription_description}"
-      Region = "${var.region}"
+      Region = "${local.region_reverse_map[var.region]}"
     }
     lifecycle {
       ignore_changes = [
@@ -39,7 +39,7 @@ resource "bloxone_ipam_address_block" "address_block_child" {
     tags = {
       Description = "tf-demo"
       Owner = "${var.subscription_description}"
-      Region = "${var.region}"
+      Region = "${local.region_reverse_map[var.region]}"
     }
     lifecycle {
       ignore_changes = [
@@ -59,7 +59,7 @@ resource "bloxone_ipam_subnet" "subnet-dev" {
       Description = "tf-demo"
       Environment = "Development"
       Owner = "${var.subscription_description}"
-      Region = "${var.region}"
+      Region = "${local.region_reverse_map[var.region]}"
     }
     lifecycle {
       ignore_changes = [
@@ -79,7 +79,7 @@ resource "bloxone_ipam_subnet" "subnet-test" {
       Description = "tf-demo"
       Environment = "Testing"
       Owner = "${var.subscription_description}"
-      Region = "${var.region}"
+      Region = "${local.region_reverse_map[var.region]}"
     }
     lifecycle {
       ignore_changes = [
@@ -99,7 +99,7 @@ resource "bloxone_ipam_subnet" "subnet-stage" {
       Description = "tf-demo"
       Environment = "Staging"
       Owner = "${var.subscription_description}"
-      Region = "${var.region}"
+      Region = "${local.region_reverse_map[var.region]}"
     }
     lifecycle {
       ignore_changes = [
@@ -156,7 +156,7 @@ resource "azurerm_virtual_network" "infobloxlab_vnet" {
   tags = {
     Description = "tf-demo"
     Owner       = var.subscription_description
-    Region = "${var.region}"
+    Region = "${local.region_reverse_map[var.region]}"
   }
 }
 
@@ -182,7 +182,7 @@ resource "bloxone_dns_auth_zone" "auth_zone" {
   tags = {
     Description = "tf-demo"
     Owner       = var.subscription_description
-    Region = "${var.region}"
+    Region = "${local.region_reverse_map[var.region]}"
   }
   query_acl = [
     {
