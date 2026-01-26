@@ -194,9 +194,14 @@ resource "bloxone_dns_auth_zone" "auth_zone" {
     },
   ]
   update_acl = [
+#    {
+#      element = "acl"
+#      acl     = bloxone_dns_acl.ddns_acl.id
+#    },
     {
-      element = "acl"
-      acl     = bloxone_dns_acl.ddns_acl.id
+      access  = "allow"
+      element = "ip"
+      address = "${trim(data.bloxone_ipam_next_available_address_blocks.next_available_address_blocks.results.0, "\"")}/22"
     },
     {
       access  = "deny"
