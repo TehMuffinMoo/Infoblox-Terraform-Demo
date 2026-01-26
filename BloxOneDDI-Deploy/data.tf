@@ -22,7 +22,7 @@ data "bloxone_ipam_address_blocks" "parent_address_block" {
     cidr = var.parent_address_block_cidr
   }
   tag_filters = {
-    "Description" = "tf-demo"
+    "Region" = "UKS"
   }
 }
 
