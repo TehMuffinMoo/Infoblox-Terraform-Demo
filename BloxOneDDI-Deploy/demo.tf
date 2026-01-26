@@ -11,102 +11,93 @@ resource "azurerm_resource_group" "infobloxlab" {
 }
 
 ## Create Network Allocation
-resource "bloxone_ipam_address_block" "address_block" {
-    address = trim(data.bloxone_ipam_next_available_address_blocks.next_available_address_blocks.results.0, "\"")
-    cidr = 23
-    name = var.subscription_name
-    comment = var.subscription_description
-    space = data.bloxone_ipam_ip_spaces.ip_space.results.0.id
-    tags = {
-      Description = "tf-demo"
-      Owner = "${var.subscription_description}"
-      Region = "${local.region_reverse_map[var.region]}"
-    }
-    lifecycle {
-      ignore_changes = [
-        address,
-      ]
-    }
+resource "bloxone_ipam_address_block" "parent" {
+  address = local.parent_block_addr
+  cidr    = 23
+  name    = var.subscription_name
+  comment = var.subscription_description
+  space   = data.bloxone_ipam_ip_spaces.ip_space.results[0].id
+
+  tags = {
+    Description = "tf-demo"
+    Owner       = var.subscription_description
+    Region      = local.region_reverse_map[lower(local.region_map[var.region])]
+  }
+
+  lifecycle {
+    ignore_changes = [address]
+  }
 }
 
 ## Create Child Address Block for VNET
-resource "bloxone_ipam_address_block" "address_block_child" {
-    address = trim(data.bloxone_ipam_next_available_address_blocks.next_available_address_blocks_child.results.0, "\"")
-    cidr = 24
-    name = "vnet-${lower(var.subscription_name)}"
-    comment = "${var.subscription_description} Virtual Network"
-    space = data.bloxone_ipam_ip_spaces.ip_space.results.0.id
-    tags = {
-      Description = "tf-demo"
-      Owner = "${var.subscription_description}"
-      Region = "${local.region_reverse_map[var.region]}"
-    }
-    lifecycle {
-      ignore_changes = [
-        address,
-      ]
-    }
+data "bloxone_ipam_next_available_address_blocks" "child" {
+  id                  = bloxone_ipam_address_block.parent.id
+  address_block_count = 1
+  cidr                = 24
 }
 
-## Create Dev Child Subnet for SNET
-resource "bloxone_ipam_subnet" "subnet-dev" {
-    address = trim(data.bloxone_ipam_next_available_subnets.next_available_address_blocks_child_snet.results.0, "\"")
-    cidr = 27
-    name = "snet-${lower(var.subscription_name)}-dev"
-    comment = "${var.subscription_description} Dev Subnet"
-    space = data.bloxone_ipam_ip_spaces.ip_space.results.0.id
-    tags = {
-      Description = "tf-demo"
-      Environment = "Development"
-      Owner = "${var.subscription_description}"
-      Region = "${local.region_reverse_map[var.region]}"
-    }
-    lifecycle {
-      ignore_changes = [
-        address,
-      ]
-    }
+locals {
+  child_block_addr = trim(data.bloxone_ipam_next_available_address_blocks.child.results[0], "\"")
 }
 
-## Create Test Child Subnet for SNET
-resource "bloxone_ipam_subnet" "subnet-test" {
-    address = trim(data.bloxone_ipam_next_available_subnets.next_available_address_blocks_child_snet.results.1, "\"")
-    cidr = 27
-    name = "snet-${lower(var.subscription_name)}-test"
-    comment = "${var.subscription_description} Test Subnet"
-    space = data.bloxone_ipam_ip_spaces.ip_space.results.0.id
-    tags = {
-      Description = "tf-demo"
-      Environment = "Testing"
-      Owner = "${var.subscription_description}"
-      Region = "${local.region_reverse_map[var.region]}"
-    }
-    lifecycle {
-      ignore_changes = [
-        address,
-      ]
-    }
+resource "bloxone_ipam_address_block" "child" {
+  address = local.child_block_addr
+  cidr    = 24
+  name    = "vnet-${lower(var.subscription_name)}"
+  comment = "${var.subscription_description} Virtual Network"
+  space   = data.bloxone_ipam_ip_spaces.ip_space.results[0].id
+
+  tags = {
+    Description = "tf-demo"
+    Owner       = var.subscription_description
+    Region      = local.region_reverse_map[lower(local.region_map[var.region])]
+  }
+
+  lifecycle {
+    ignore_changes = [address]
+  }
 }
 
-## Create Stage Child Subnet for SNET
-resource "bloxone_ipam_subnet" "subnet-stage" {
-    address = trim(data.bloxone_ipam_next_available_subnets.next_available_address_blocks_child_snet.results.2, "\"")
-    cidr = 27
-    name = "snet-${lower(var.subscription_name)}-stage"
-    comment = "${var.subscription_description} Stage Subnet"
-    space = data.bloxone_ipam_ip_spaces.ip_space.results.0.id
-    tags = {
-      Description = "tf-demo"
-      Environment = "Staging"
-      Owner = "${var.subscription_description}"
-      Region = "${local.region_reverse_map[var.region]}"
-    }
-    lifecycle {
-      ignore_changes = [
-        address,
-      ]
-    }
+
+## Create Subnets
+locals {
+  environments = ["dev", "test", "stage"]
 }
+
+data "bloxone_ipam_next_available_subnets" "snet" {
+  id           = bloxone_ipam_address_block.child.id
+  subnet_count = length(local.environments)
+  cidr         = 27
+}
+
+locals {
+  snet_addrs = [
+    for a in data.bloxone_ipam_next_available_subnets.snet.results :
+    trim(a, "\"")
+  ]
+}
+
+resource "bloxone_ipam_subnet" "subnets" {
+  for_each = toset(local.environments)
+
+  address = local.snet_addrs[index(local.environments, each.key)]
+  cidr    = 27
+  name    = "snet-${lower(var.subscription_name)}-${each.key}"
+  comment = "${var.subscription_description} ${title(each.key)} Subnet"
+  space   = data.bloxone_ipam_ip_spaces.ip_space.results[0].id
+
+  tags = {
+    Description = "tf-demo"
+    Environment = title(each.key)
+    Owner       = var.subscription_description
+    Region      = local.region_reverse_map[lower(local.region_map[var.region])]
+  }
+
+  lifecycle {
+    ignore_changes = [address]
+  }
+}
+
 
 ## Create Virtual Network Security Group
 resource "azurerm_network_security_group" "infobloxlab_nsg" {
@@ -116,104 +107,77 @@ resource "azurerm_network_security_group" "infobloxlab_nsg" {
 }
 
 ## Create Virtual Network / Subnet
-resource "azurerm_virtual_network" "infobloxlab_vnet" {
+resource "azurerm_virtual_network" "vnet" {
   name                = "vnet-${lower(var.subscription_name)}"
-  location            = azurerm_resource_group.infobloxlab.location
-  resource_group_name = azurerm_resource_group.infobloxlab.name
+  location            = azurerm_resource_group.rg.location
+  resource_group_name = azurerm_resource_group.rg.name
 
   address_space = [
-    "${trim(data.bloxone_ipam_next_available_address_blocks.next_available_address_blocks_child.results[0], "\"")}/${data.bloxone_ipam_next_available_address_blocks.next_available_address_blocks_child.cidr}"
+    "${bloxone_ipam_address_block.child.address}/${bloxone_ipam_address_block.child.cidr}"
   ]
 
   dns_servers = ["192.168.50.10", "192.168.178.10"]
 
-  subnet {
-    name              = "snet-${lower(var.subscription_name)}-dev"
-    address_prefixes  = [
-      "${trim(data.bloxone_ipam_next_available_subnets.next_available_address_blocks_child_snet.results[0], "\"")}/${data.bloxone_ipam_next_available_subnets.next_available_address_blocks_child_snet.cidr}"
-    ]
-  }
+  dynamic "subnet" {
+    for_each = bloxone_ipam_subnet.subnets
 
-  subnet {
-    name              = "snet-${lower(var.subscription_name)}-test"
-    address_prefixes  = [
-            "${trim(data.bloxone_ipam_next_available_subnets.next_available_address_blocks_child_snet.results[1], "\"")}/${data.bloxone_ipam_next_available_subnets.next_available_address_blocks_child_snet.cidr}"
-    ]
-  }
-
-  subnet {
-    name              = "snet-${lower(var.subscription_name)}-stage"
-    address_prefixes  = [
-            "${trim(data.bloxone_ipam_next_available_subnets.next_available_address_blocks_child_snet.results[2], "\"")}/${data.bloxone_ipam_next_available_subnets.next_available_address_blocks_child_snet.cidr}"
-    ]
+    content {
+      name             = subnet.value.name
+      address_prefixes = ["${subnet.value.address}/${subnet.value.cidr}"]
+    }
   }
 
   tags = {
     Description = "tf-demo"
     Owner       = var.subscription_description
-    Region = "${local.region_reverse_map[var.region]}"
+    Region      = local.region_reverse_map[lower(local.region_map[var.region])]
   }
 }
 
 ## Create DDNS Update ACL
-resource "bloxone_dns_acl" "ddns_acl" {
-  name = "${var.subscription_name} DDNS ACL"
-
-  # Other Optional fields
+resource "bloxone_dns_acl" "ddns" {
+  name    = "${var.subscription_name} DDNS ACL"
   comment = "${var.subscription_name} ACL to allow DDNS updates"
+
   tags = {
     Description = "tf-demo"
     Owner       = var.subscription_description
-    Region = "${local.region_reverse_map[var.region]}"
+    Region      = local.region_reverse_map[lower(local.region_map[var.region])]
   }
+
   list = [
     {
       access  = "allow"
       element = "ip"
-      address = "${bloxone_ipam_address_block.address_block_child.address}/${bloxone_ipam_address_block.address_block_child.cidr}"
-    },
+      address = "${bloxone_ipam_address_block.child.address}/${bloxone_ipam_address_block.child.cidr}"
+    }
   ]
 }
 
 ## Create DNS Zone
-resource "bloxone_dns_auth_zone" "auth_zone" {
-  fqdn         = "${lower(var.subscription_name)}.${lower(local.region_reverse_map[var.region])}.az.corp.local."
+resource "bloxone_dns_auth_zone" "zone" {
+  fqdn         = "${lower(var.subscription_name)}.${lower(local.region_reverse_map[lower(local.region_map[var.region])])}.az.corp.local."
   primary_type = "cloud"
-  view = "${data.bloxone_dns_views.dns_view.results[0].id}"
-  # Other optional fields
+  view         = data.bloxone_dns_views.dns_view.results[0].id
+
   comment = "${var.subscription_name} DNS Zone"
+
   tags = {
     Description = "tf-demo"
     Owner       = var.subscription_description
-    Region = "${local.region_reverse_map[var.region]}"
+    Region      = local.region_reverse_map[lower(local.region_map[var.region])]
   }
+
   inheritance_sources = {
-    update_acl = {
-      action = "override"
-    }
+    update_acl = { action = "override" }
   }
-  query_acl = [
-    {
-      access  = "allow"
-      element = "any"
-    },
-  ]
+
+  query_acl = [{ access = "allow", element = "any" }]
+
   update_acl = [
-    {
-      element = "acl"
-      acl     = bloxone_dns_acl.ddns_acl.id
-    },
-    {
-      access  = "deny"
-      element = "any"
-    },
+    { element = "acl", acl = bloxone_dns_acl.ddns.id },
+    { access = "deny", element = "any" }
   ]
-  transfer_acl = [
-    {
-      access  = "deny"
-      element = "any"
-    },
-  ]
+
+  transfer_acl = [{ access = "deny", element = "any" }]
 }
-
-

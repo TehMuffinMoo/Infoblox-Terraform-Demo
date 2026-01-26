@@ -1,33 +1,24 @@
 terraform {
   required_providers {
     bloxone = {
-      source = "infobloxopen/bloxone"
+      source  = "infobloxopen/bloxone"
       version = "1.5.4"
     }
     azurerm = {
+      source  = "hashicorp/azurerm"
+      version = "~> 4.0"
     }
   }
+
+  backend "azurerm" {}
 }
 
-# Configure the Azure Provider
 provider "azurerm" {
   skip_provider_registration = true
   features {}
 }
 
-#provider "azurerm" {
-#  alias = "specific"
-#  subscription_id = azurerm_subscription.infobloxlab.id
-#  features {}
-#  skip_provider_registration = true
-#}
-
-# Configure the BloxOne Provider
 provider "bloxone" {
   csp_url = var.b1_csp_url
   api_key = var.b1_api_key
-}
-
-terraform {
-   backend "azurerm" {}
 }
