@@ -21,7 +21,7 @@ resource "bloxone_ipam_address_block" "parent" {
   tags = {
     Description = "tf-demo"
     Owner       = var.subscription_description
-    Region      = local.region_reverse_map[lower(local.region_reverse_map[var.region])]
+    Region      = local.region_reverse_map[var.region]
   }
 
   lifecycle {
@@ -50,7 +50,7 @@ resource "bloxone_ipam_address_block" "child" {
   tags = {
     Description = "tf-demo"
     Owner       = var.subscription_description
-    Region      = local.region_reverse_map[lower(local.region_reverse_map[var.region])]
+    Region      = local.region_reverse_map[var.region]
   }
 
   lifecycle {
@@ -90,7 +90,7 @@ resource "bloxone_ipam_subnet" "subnets" {
     Description = "tf-demo"
     Environment = title(each.key)
     Owner       = var.subscription_description
-    Region      = local.region_reverse_map[lower(local.region_reverse_map[var.region])]
+    Region      = local.region_reverse_map[var.region]
   }
 
   lifecycle {
@@ -130,7 +130,7 @@ resource "azurerm_virtual_network" "vnet" {
   tags = {
     Description = "tf-demo"
     Owner       = var.subscription_description
-    Region      = local.region_reverse_map[lower(local.region_reverse_map[var.region])]
+    Region      = local.region_reverse_map[var.region]
   }
 }
 
@@ -142,7 +142,7 @@ resource "bloxone_dns_acl" "ddns" {
   tags = {
     Description = "tf-demo"
     Owner       = var.subscription_description
-    Region      = local.region_reverse_map[lower(local.region_reverse_map[var.region])]
+    Region      = local.region_reverse_map[var.region]
   }
 
   list = [
@@ -156,7 +156,7 @@ resource "bloxone_dns_acl" "ddns" {
 
 ## Create DNS Zone
 resource "bloxone_dns_auth_zone" "zone" {
-  fqdn         = "${lower(var.subscription_name)}.${lower(local.region_reverse_map[lower(local.region_reverse_map[var.region])])}.az.corp.local."
+  fqdn         = "${lower(var.subscription_name)}.${lower(local.region_reverse_map[var.region])}.az.corp.local."
   primary_type = "cloud"
   view         = data.bloxone_dns_views.dns_view.results[0].id
 
@@ -165,7 +165,7 @@ resource "bloxone_dns_auth_zone" "zone" {
   tags = {
     Description = "tf-demo"
     Owner       = var.subscription_description
-    Region      = local.region_reverse_map[lower(local.region_reverse_map[var.region])]
+    Region      = local.region_reverse_map[var.region]
   }
 
   inheritance_sources = {
