@@ -2,11 +2,7 @@ terraform {
   required_providers {
     bloxone = {
       source = "infobloxopen/bloxone"
-      version = "1.2.0"
-    }
-    b1ddi = {
-      source = "infobloxopen/b1ddi"
-      version = "0.1.5"
+      version = "1.5.4"
     }
     azurerm = {
     }
@@ -29,10 +25,6 @@ provider "azurerm" {
 # Configure the BloxOne Provider
 provider "bloxone" {
   csp_url = "https://csp.infoblox.com"
-  api_key = var.b1_api_key
-}
-provider "b1ddi" {
-  host = "csp.infoblox.com"
   api_key = var.b1_api_key
 }
 
