@@ -191,7 +191,7 @@ resource "bloxone_dns_auth_zone" "auth_zone" {
     },
   ]
   depends_on = [
-    bloxone_ipam_address_block.address_block_child
+    azurerm_virtual_network.infobloxlab_vnet.address_space
   ]
 }
 
