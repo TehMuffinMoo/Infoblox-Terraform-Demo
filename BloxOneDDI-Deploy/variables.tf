@@ -34,3 +34,7 @@ variable "subscription_description" {
     type        = string
     description = "Azure Subscription Description"
 }
+variable "region" {
+    type        = string
+    description = "Azure Region"
+}
