@@ -40,7 +40,7 @@ variable "region" {
   description = "Azure Region"
 
   validation {
-    condition     = contains(keys(local.region_map), var.region)
-    error_message = "Region must be one of: ${join(", ", keys(local.region_map))}"
+    condition     = contains(keys(local.region_reverse_map), var.region)
+    error_message = "Region must be one of: ${join(", ", keys(local.region_reverse_map))}"
   }
 }
