@@ -64,6 +64,10 @@ stages:
     cancelTimeoutInMinutes: 2 # how much time to give 'run always even if cancelled tasks' before stopping them
     displayName: 'Terraform Apply'
     steps:
+    - task: TerraformInstaller@1
+      displayName: 'Install Terraform'
+      inputs:
+        terraformVersion: 'latest'
     - task: TerraformTaskV4@4
       displayName: Initialize Terraform
       inputs:
@@ -105,6 +109,10 @@ stages:
     cancelTimeoutInMinutes: 2 # how much time to give 'run always even if cancelled tasks' before stopping them
     displayName: 'Terraform Destroy'
     steps:
+    - task: TerraformInstaller@1
+      displayName: 'Install Terraform'
+      inputs:
+        terraformVersion: 'latest'
     - task: TerraformTaskV4@4
       displayName: Initialize Terraform
       inputs:
