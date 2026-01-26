@@ -177,7 +177,7 @@ resource "bloxone_dns_auth_zone" "auth_zone" {
     {
       access  = "allow"
       element = "ip"
-      address = "192.168.20.0/24"
+      address = "${trim(data.bloxone_ipam_next_available_address_blocks.next_available_address_blocks_child.results[0], "\"")}/${data.bloxone_ipam_next_available_address_blocks.next_available_address_blocks_child.cidr}"
     },
     {
       access  = "deny"
