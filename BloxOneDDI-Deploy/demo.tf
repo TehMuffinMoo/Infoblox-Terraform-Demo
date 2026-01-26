@@ -131,7 +131,7 @@ resource "azurerm_virtual_network" "infobloxlab_vnet" {
 
   # If the data source returns a plain IP (e.g., 10.10.10.0), this works directly
   address_space = [
-    "${data.bloxone_ipam_next_available_address_blocks.next_available_address_blocks.results[0]}/24"
+    "${trim(data.bloxone_ipam_next_available_address_blocks.next_available_address_blocks.results[0], "\"")}/${data.bloxone_ipam_next_available_address_blocks.next_available_address_blocks.cidr}"
   ]
 
   dns_servers = ["1.1.1.1", "1.0.0.1"]
@@ -139,21 +139,21 @@ resource "azurerm_virtual_network" "infobloxlab_vnet" {
   subnet {
     name              = "${var.subscription_name}-snet-dev"
     address_prefixes  = [
-      "${data.bloxone_ipam_next_available_subnets.next_available_address_blocks_child_snet.results[0]}/27"
+      "${trim(data.bloxone_ipam_next_available_subnets.next_available_address_blocks_child_snet.results[0], "\"")}/${data.bloxone_ipam_next_available_subnets.next_available_address_blocks_child_snet.cidr}"
     ]
   }
 
   subnet {
     name              = "${var.subscription_name}-snet-test"
     address_prefixes  = [
-      "${data.bloxone_ipam_next_available_subnets.next_available_address_blocks_child_snet.results[1]}/27"
+            "${trim(data.bloxone_ipam_next_available_subnets.next_available_address_blocks_child_snet.results[1], "\"")}/${data.bloxone_ipam_next_available_subnets.next_available_address_blocks_child_snet.cidr}"
     ]
   }
 
   subnet {
     name              = "${var.subscription_name}-snet-stage"
     address_prefixes  = [
-      "${data.bloxone_ipam_next_available_subnets.next_available_address_blocks_child_snet.results[2]}/27"
+            "${trim(data.bloxone_ipam_next_available_subnets.next_available_address_blocks_child_snet.results[2], "\"")}/${data.bloxone_ipam_next_available_subnets.next_available_address_blocks_child_snet.cidr}"
     ]
   }
 
