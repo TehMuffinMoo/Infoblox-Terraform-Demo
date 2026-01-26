@@ -208,4 +208,7 @@ resource "bloxone_dns_auth_zone" "auth_zone" {
       element = "any"
     },
   ]
+  depends_on = [
+    data.bloxone_ipam_next_available_address_blocks.next_available_address_blocks_child
+  ]
 }
