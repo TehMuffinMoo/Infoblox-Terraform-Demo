@@ -170,7 +170,7 @@ resource "bloxone_dns_acl" "ddns_acl" {
     {
       access  = "allow"
       element = "ip"
-      address = "${trim(data.bloxone_ipam_next_available_address_blocks.next_available_address_blocks.results.0, "\"")}/23"
+      address = "${tolist(azurerm_virtual_network.infobloxlab_vnet.address_space)[0]}"
     },
   ]
 }
