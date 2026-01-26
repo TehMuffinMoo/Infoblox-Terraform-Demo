@@ -1,8 +1,8 @@
 locals {
-  region_map = {
-    UKS = "UK South"
-    UKW = "UK West"
-    EUW = "West Europe"
-    EUN = "North Europe"
-  }
+    region_map = {
+        "UK South" = "UKS"
+        "UK West" = "UKW"
+        "West Europe" = "EUW"
+        "North Europe" = "EUN"
+    }
 }
