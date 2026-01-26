@@ -8,10 +8,10 @@ parameters:
   - Apply
   - Destroy
 - name: SubName
-  displayName: Landing Zone Name
+  displayName: Subscription Name
   type: string
 - name: SubDescription
-  displayName: Landing Zone Description
+  displayName: Subscription Description
   type: string
 
 trigger: none

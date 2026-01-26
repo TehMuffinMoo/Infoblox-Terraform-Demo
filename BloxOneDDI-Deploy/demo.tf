@@ -32,7 +32,7 @@ resource "bloxone_ipam_address_block" "address_block" {
 resource "bloxone_ipam_address_block" "address_block_child" {
     address = trim(data.bloxone_ipam_next_available_address_blocks.next_available_address_blocks_child.results.0, "\"")
     cidr = 24
-    name = "${var.subscription_name}-vnet"
+    name = "vnet-${var.subscription_name}"
     comment = "${var.subscription_description} Virtual Network"
     space = data.bloxone_ipam_ip_spaces.ip_space.results.0.id
     tags = {
@@ -50,7 +50,7 @@ resource "bloxone_ipam_address_block" "address_block_child" {
 resource "bloxone_ipam_subnet" "subnet-dev" {
     address = trim(data.bloxone_ipam_next_available_subnets.next_available_address_blocks_child_snet.results.0, "\"")
     cidr = 27
-    name = "${var.subscription_name}-snet-dev"
+    name = "snet-${var.subscription_name}-dev"
     comment = "${var.subscription_description} Dev Subnet"
     space = data.bloxone_ipam_ip_spaces.ip_space.results.0.id
     tags = {
@@ -69,7 +69,7 @@ resource "bloxone_ipam_subnet" "subnet-dev" {
 resource "bloxone_ipam_subnet" "subnet-test" {
     address = trim(data.bloxone_ipam_next_available_subnets.next_available_address_blocks_child_snet.results.1, "\"")
     cidr = 27
-    name = "${var.subscription_name}-snet-test"
+    name = "snet-${var.subscription_name}-test"
     comment = "${var.subscription_description} Test Subnet"
     space = data.bloxone_ipam_ip_spaces.ip_space.results.0.id
     tags = {
@@ -88,7 +88,7 @@ resource "bloxone_ipam_subnet" "subnet-test" {
 resource "bloxone_ipam_subnet" "subnet-stage" {
     address = trim(data.bloxone_ipam_next_available_subnets.next_available_address_blocks_child_snet.results.2, "\"")
     cidr = 27
-    name = "${var.subscription_name}-snet-stage"
+    name = "snet-${var.subscription_name}-stage"
     comment = "${var.subscription_description} Stage Subnet"
     space = data.bloxone_ipam_ip_spaces.ip_space.results.0.id
     tags = {
@@ -105,7 +105,7 @@ resource "bloxone_ipam_subnet" "subnet-stage" {
 
 ## Create Virtual Network Security Group
 resource "azurerm_network_security_group" "infobloxlab_nsg" {
-  name                = "${var.subscription_name}-vnet-nsg"
+  name                = "vnet-nsg-${var.subscription_name}"
   location            = azurerm_resource_group.infobloxlab.location
   resource_group_name = azurerm_resource_group.infobloxlab.name
 }
@@ -137,21 +137,21 @@ resource "azurerm_virtual_network" "infobloxlab_vnet" {
   dns_servers = ["1.1.1.1", "1.0.0.1"]
 
   subnet {
-    name              = "${var.subscription_name}-snet-dev"
+    name              = "snet-${var.subscription_name}-dev"
     address_prefixes  = [
       "${trim(data.bloxone_ipam_next_available_subnets.next_available_address_blocks_child_snet.results[0], "\"")}/${data.bloxone_ipam_next_available_subnets.next_available_address_blocks_child_snet.cidr}"
     ]
   }
 
   subnet {
-    name              = "${var.subscription_name}-snet-test"
+    name              = "snet-${var.subscription_name}-test"
     address_prefixes  = [
             "${trim(data.bloxone_ipam_next_available_subnets.next_available_address_blocks_child_snet.results[1], "\"")}/${data.bloxone_ipam_next_available_subnets.next_available_address_blocks_child_snet.cidr}"
     ]
   }
 
   subnet {
-    name              = "${var.subscription_name}-snet-stage"
+    name              = "snet-${var.subscription_name}-stage"
     address_prefixes  = [
             "${trim(data.bloxone_ipam_next_available_subnets.next_available_address_blocks_child_snet.results[2], "\"")}/${data.bloxone_ipam_next_available_subnets.next_available_address_blocks_child_snet.cidr}"
     ]
