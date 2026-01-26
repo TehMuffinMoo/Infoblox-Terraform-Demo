@@ -13,6 +13,14 @@ parameters:
 - name: SubDescription
   displayName: Subscription Description
   type: string
+- name: Region
+  displayName: Azure Region
+  default: UKS
+  values:
+  - UK South
+  - UK West
+  - EU West
+  - EU North
 
 trigger: none
 
@@ -51,7 +59,7 @@ stages:
       inputs:
         provider: 'azurerm'
         command: 'plan'
-        commandOptions: '-out main.tfplan --var-file=demo.tfvars -var b1_api_key=$(B1DDI_API_KEY) -var b1_csp_url=$(B1DDI_CSP_URL) -var subscription_name="${{ parameters.SubName }}" -var subscription_description="${{ parameters.SubDescription }}"'
+        commandOptions: '-out main.tfplan --var-file=demo.tfvars -var b1_api_key=$(B1DDI_API_KEY) -var b1_csp_url=$(B1DDI_CSP_URL) -var subscription_name="${{ parameters.SubName }}" -var subscription_description="${{ parameters.SubDescription }}" -var region="${{ parameters.Region }}"'
         workingDirectory: 'BloxOneDDI-Deploy'
         environmentServiceNameAzureRM: 'azure-infobloxlab'
 
@@ -86,7 +94,7 @@ stages:
       inputs:
         provider: 'azurerm'
         command: 'plan'
-        commandOptions: '-out main.tfplan --var-file=demo.tfvars -var b1_api_key=$(B1DDI_API_KEY) -var b1_csp_url=$(B1DDI_CSP_URL) -var subscription_name="${{ parameters.SubName }}" -var subscription_description="${{ parameters.SubDescription }}"'
+        commandOptions: '-out main.tfplan --var-file=demo.tfvars -var b1_api_key=$(B1DDI_API_KEY) -var b1_csp_url=$(B1DDI_CSP_URL) -var subscription_name="${{ parameters.SubName }}" -var subscription_description="${{ parameters.SubDescription }}" -var region="${{ parameters.Region }}"'
         workingDirectory: 'BloxOneDDI-Deploy'
         environmentServiceNameAzureRM: 'azure-infobloxlab'
 
@@ -131,6 +139,6 @@ stages:
       inputs:
         provider: 'azurerm'
         command: 'destroy'
-        commandOptions: '--var-file=demo.tfvars -var b1_api_key=$(B1DDI_API_KEY) -var b1_csp_url=$(B1DDI_CSP_URL) -var subscription_name="${{ parameters.SubName }}" -var subscription_description="${{ parameters.SubDescription }}"'
+        commandOptions: '--var-file=demo.tfvars -var b1_api_key=$(B1DDI_API_KEY) -var b1_csp_url=$(B1DDI_CSP_URL) -var subscription_name="${{ parameters.SubName }}" -var subscription_description="${{ parameters.SubDescription }}" -var region="${{ parameters.Region }}"'
         workingDirectory: 'BloxOneDDI-Deploy'
         environmentServiceNameAzureRM: 'azure-infobloxlab'

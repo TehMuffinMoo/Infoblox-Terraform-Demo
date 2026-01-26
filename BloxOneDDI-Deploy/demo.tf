@@ -7,7 +7,7 @@
 ## Create Azure Resource Group
 resource "azurerm_resource_group" "infobloxlab" {
   name     = "rg-${lower(var.subscription_name)}"
-  location = "UK South"
+  location = var.region
 }
 
 ## Create Network Allocation

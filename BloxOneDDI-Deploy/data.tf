@@ -17,12 +17,8 @@ data "bloxone_dns_views" "dns_view" {
 }
 
 data "bloxone_ipam_address_blocks" "parent_address_block" {
-  filters = {
-    address = var.parent_address_block
-    cidr = var.parent_address_block_cidr
-  }
   tag_filters = {
-    "Region" = "UKS"
+    "Region" = local.region_map[var.region]
   }
 }
 
