@@ -1,9 +1,3 @@
-## Create Azure Subscription
-# resource "azurerm_subscription" "sub" {
-#   subscription_name = var.subscription_name
-#   billing_scope_id  = data.azurerm_billing_enrollment_account_scope.infobloxlab.id
-# }
-
 ## Create Azure Resource Group
 resource "azurerm_resource_group" "rg" {
   name     = "rg-${lower(var.subscription_name)}"
