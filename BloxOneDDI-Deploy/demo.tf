@@ -179,7 +179,7 @@ resource "bloxone_dns_acl" "ddns_acl" {
 resource "bloxone_dns_auth_zone" "auth_zone" {
   fqdn         = "${lower(var.subscription_name)}.${lower(local.region_reverse_map[var.region])}.az.corp.local."
   primary_type = "cloud"
-  view = "${var.dns_view}"
+  view = "${bloxone_dns_views.dns_view.results[0].id}"
   # Other optional fields
   comment = "${var.subscription_name} DNS Zone"
   tags = {
