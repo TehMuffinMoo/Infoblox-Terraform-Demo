@@ -114,6 +114,14 @@ output "debug_parent_block" {
   value = data.bloxone_ipam_address_blocks.parent_address_block
 }
 
+output "debug_child_vnet" {
+  value = data.bloxone_ipam_next_available_address_blocks.next_available_address_blocks
+}
+
+output "debug_child_subnets" {
+  value = data.bloxone_ipam_next_available_subnets.next_available_address_blocks_child_snet
+}
+
 
 ## Create Virtual Network / Subnet
 resource "azurerm_virtual_network" "infobloxlab_vnet" {
