@@ -20,8 +20,8 @@ parameters:
   values:
   - UK South
   - UK West
-  - EU West
-  - EU North
+  - West Europe
+  - North Europe
 
 trigger: none
 
