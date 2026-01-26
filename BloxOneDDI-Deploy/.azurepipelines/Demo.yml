@@ -1,7 +1,6 @@
 parameters:
 - name: action
   displayName: Terraform Action
-  type: string
   default: Plan
   values:
   - Plan
