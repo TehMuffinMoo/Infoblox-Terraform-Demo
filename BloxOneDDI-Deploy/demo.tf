@@ -115,11 +115,6 @@ resource "azurerm_network_security_group" "infobloxlab_nsg" {
   resource_group_name = azurerm_resource_group.infobloxlab.name
 }
 
-##output "debug_parent_block" {
-##  value = data.bloxone_ipam_address_blocks.parent_address_block
-##}
-
-
 ## Create Virtual Network / Subnet
 resource "azurerm_virtual_network" "infobloxlab_vnet" {
   name                = "vnet-${lower(var.subscription_name)}"
@@ -158,6 +153,10 @@ resource "azurerm_virtual_network" "infobloxlab_vnet" {
     Owner       = var.subscription_description
     Region = "${local.region_reverse_map[var.region]}"
   }
+}
+
+output "debug_address_string" {
+  value = "${trim(data.bloxone_ipam_next_available_address_blocks.next_available_address_blocks_child.results[0], "\"")}/${data.bloxone_ipam_next_available_address_blocks.next_available_address_blocks_child.cidr}"
 }
 
 ## Create DNS ACL
