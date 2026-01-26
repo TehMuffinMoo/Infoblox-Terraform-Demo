@@ -141,7 +141,7 @@ resource "azurerm_virtual_network" "vnet" {
 ## Create DDNS Update ACL
 resource "bloxone_dns_acl" "ddns" {
   depends_on = [
-    bloxone_ipam_address_block.child
+    bloxone_ipam_address_block.parent
   ]
   name    = "${var.subscription_name} DDNS ACL"
   comment = "${var.subscription_name} ACL to allow DDNS updates"
@@ -156,7 +156,7 @@ resource "bloxone_dns_acl" "ddns" {
     {
       access  = "allow"
       element = "ip"
-      address = "${bloxone_ipam_address_block.child.address}/${bloxone_ipam_address_block.child.cidr}"
+      address = "${bloxone_ipam_address_block.parent.address}/${bloxone_ipam_address_block.parent.cidr}"
     }
   ]
 }
