@@ -125,13 +125,13 @@ output "debug_child_subnets" {
 
 ## Create Virtual Network / Subnet
 resource "azurerm_virtual_network" "infobloxlab_vnet" {
-  name                = "${lower(var.subscription_name)}-vnet"
+  name                = "vnet-${lower(var.subscription_name)}"
   location            = azurerm_resource_group.infobloxlab.location
   resource_group_name = azurerm_resource_group.infobloxlab.name
 
   # If the data source returns a plain IP (e.g., 10.10.10.0), this works directly
   address_space = [
-    "${trim(data.bloxone_ipam_next_available_address_blocks.next_available_address_blocks.results[0], "\"")}/${data.bloxone_ipam_next_available_address_blocks.next_available_address_blocks.cidr}"
+    "${trim(data.bloxone_ipam_next_available_address_blocks.next_available_address_blocks_child.results[0], "\"")}/${data.bloxone_ipam_next_available_address_blocks.next_available_address_blocks_child.cidr}"
   ]
 
   dns_servers = ["1.1.1.1", "1.0.0.1"]
