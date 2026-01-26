@@ -177,7 +177,7 @@ resource "bloxone_dns_auth_zone" "auth_zone" {
     {
       access  = "allow"
       element = "ip"
-      address = tolist(azurerm_virtual_network.infobloxlab_vnet.address_space)[0]
+      address = one(azurerm_virtual_network.infobloxlab_vnet.address_space[0])
     },
     {
       access  = "deny"
