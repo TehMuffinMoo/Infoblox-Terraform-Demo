@@ -18,7 +18,7 @@ data "bloxone_dns_views" "dns_view" {
 
 data "bloxone_ipam_address_blocks" "parent_address_block" {
   tag_filters = {
-    Region = local.region_map[var.region]
+    Region = local.region_reverse_map[var.region]
   }
 }
 
