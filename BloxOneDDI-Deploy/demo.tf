@@ -134,7 +134,7 @@ resource "azurerm_virtual_network" "infobloxlab_vnet" {
     "${trim(data.bloxone_ipam_next_available_address_blocks.next_available_address_blocks_child.results[0], "\"")}/${data.bloxone_ipam_next_available_address_blocks.next_available_address_blocks_child.cidr}"
   ]
 
-  dns_servers = ["1.1.1.1", "1.0.0.1"]
+  dns_servers = ["192.168.50.10", "192.168.178.10"]
 
   subnet {
     name              = "snet-${lower(var.subscription_name)}-dev"
