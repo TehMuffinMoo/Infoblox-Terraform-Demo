@@ -196,7 +196,7 @@ resource "bloxone_dns_auth_zone" "auth_zone" {
   update_acl = [
     {
       element = "acl"
-      acl     = bloxone_dns_acl.auth_zone_acl.id
+      acl     = bloxone_dns_acl.ddns_acl.id
     },
     {
       access  = "deny"
